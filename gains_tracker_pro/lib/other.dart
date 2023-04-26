@@ -18,12 +18,14 @@ class OtherPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
-        child: ListView.builder(itemBuilder: (_, index) {
-          return Container(
-            color: randColor(),
-            width: 500,
-            height: 500,
-          );},
+        child: ListView.builder(
+          itemBuilder: (_, index) {
+            return Container(
+              color: randColor(),
+              width: 500,
+              height: 500,
+            );
+          },
         ),
       ),
     );
