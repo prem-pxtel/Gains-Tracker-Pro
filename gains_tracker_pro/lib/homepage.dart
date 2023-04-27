@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'calendar.dart';
 import 'other.dart';
 import 'classes.dart';
-import 'randfuncs.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,14 +20,18 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar:AppBar(
         backgroundColor: Colors.black,
-        title: const Text('GAINS TRACKER PRO'),
+        title: const Text('GAINS TRACKER PRO 💪'),
       ),
       floatingActionButton: FloatingActionButton(
         child:const Icon(Icons.add),
         onPressed: () {
           setState(() {
-            Workout newTestWkout = Workout();
-            wkoutList.add(newTestWkout);
+            final DateTime now = DateTime.now();
+            final DateFormat formatter = DateFormat('MMMMd');
+            formatter.add_jm();
+            final String formattedDate = formatter.format(now);
+            Workout newWkout = Workout(formattedDate);
+            wkoutList.add(newWkout);
           });
         }
       ),

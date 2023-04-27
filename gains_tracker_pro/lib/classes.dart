@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'randfuncs.dart';
 
 class Workout {
-  String wkoutName = 'New Workout';
-  int month = 0;
-  int day = 0;
-  int year = 0;
+  String wkoutName =  'New Workout';
+  DateTime dt = DateTime.now();
   List<Exercise> exList = [];
   String emoji = randEmoji();
   Color c = randColor();
+  Workout(this.wkoutName);
 }
 
 class Exercise {
