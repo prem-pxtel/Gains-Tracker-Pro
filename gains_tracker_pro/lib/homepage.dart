@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   leading: const CircleAvatar(
                     backgroundColor: Colors.black,
-                    child: Text('💪',),
+                    child: Text('%randemoji',),
                   ),
                 );
               },
