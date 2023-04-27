@@ -47,8 +47,15 @@ class _HomePageState extends State<HomePage> {
                   tileColor: wkoutList[reverseIndex].c,
                   title: Text(wkoutList[reverseIndex].wkoutName),                
                   shape: RoundedRectangleBorder(
-                    side: const BorderSide(width: 7, color: Colors.white),
-                    borderRadius: BorderRadius.circular(20),
+                    side: BorderSide(
+                      width: 7,
+                      color: Theme.of(context).brightness == Brightness.dark
+                        ? const Color.fromARGB(1, 46, 46, 46)
+                        : Colors.white,
+                    ),
+                    borderRadius: Theme.of(context).brightness == Brightness.dark
+                      ? BorderRadius.circular(0)
+                      : BorderRadius.circular(20),
                   ),
                   leading: CircleAvatar(
                     backgroundColor: Colors.black,
