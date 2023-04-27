@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
               itemCount: wkoutList.length,
               itemBuilder: (_, index) {
                 return ListTile(
-                  tileColor: randColor(),
+                  tileColor: wkoutList[index].c,
                   title: Text(wkoutList[index].wkoutName),                
                   shape: RoundedRectangleBorder(
                     side: const BorderSide(width: 7, color: Colors.white),
@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   leading: CircleAvatar(
                     backgroundColor: Colors.black,
-                    child: Text(randEmoji()),
+                    child: Text(wkoutList[index].emoji),
                   ),
                 );
               },
