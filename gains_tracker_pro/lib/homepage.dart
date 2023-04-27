@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'calendar.dart';
 import 'other.dart';
 import 'classes.dart';
+import 'randemoji.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -43,9 +44,9 @@ class _HomePageState extends State<HomePage> {
                     side: const BorderSide(width: 7, color: Colors.white),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  leading: const CircleAvatar(
+                  leading: CircleAvatar(
                     backgroundColor: Colors.black,
-                    child: Text('%randemoji',),
+                    child: Text(randemoji()),
                   ),
                 );
               },
