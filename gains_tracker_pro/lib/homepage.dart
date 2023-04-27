@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'calendar.dart';
 import 'other.dart';
+import 'classes.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,6 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Workout> wkoutList = [];
   int currentPageIndex = 0;
 
   @override
@@ -23,16 +25,30 @@ class _HomePageState extends State<HomePage> {
         child:const Icon(Icons.add),
         onPressed: () {
           setState(() {
-
+            Workout newTestWkout = Workout();
+            wkoutList.add(newTestWkout);
           });
         }
       ),
       body:<Widget>[
         Stack(
           children: [
-            Container(
-              alignment: Alignment.center,
-              child: const Text('Page 1'),
+            ListView.builder(
+              itemCount: wkoutList.length,
+              itemBuilder: (_, index) {
+                return ListTile(
+                  tileColor: randColor(),
+                  title: Text(wkoutList[index].wkoutName),                
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(width: 7, color: Colors.white),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  leading: const CircleAvatar(
+                    backgroundColor: Colors.black,
+                    child: Text('💪',),
+                  ),
+                );
+              },
             ),
           ]
         ),

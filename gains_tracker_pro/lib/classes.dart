@@ -1,5 +1,5 @@
 class Workout {
-  String wkoutName = '';
+  String wkoutName = 'New Workout';
   int month = 0;
   int day = 0;
   int year = 0;
@@ -7,7 +7,7 @@ class Workout {
 }
 
 class Exercise {
-  String exName = '';
+  String exName = 'New Exercise';
   String notes = '';
   List<Set> setList = [];
 }
