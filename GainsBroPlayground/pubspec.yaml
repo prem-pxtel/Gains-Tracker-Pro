@@ -29,7 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
-    sdk: flutterE
+    sdk: flutter
   
   table_calendar: ^3.0.9
 
