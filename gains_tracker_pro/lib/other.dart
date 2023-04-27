@@ -1,14 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
-
-Color randColor() {
-  int a = Random().nextInt((255));
-  int r = Random().nextInt((255));
-  int g = Random().nextInt((255));
-  int b = Random().nextInt((255));
-  Color randColor = Color.fromARGB(a, r, g, b);
-  return randColor;
-}
+import 'randfuncs.dart';
 
 class OtherPage extends StatelessWidget {
   const OtherPage({super.key});
