@@ -39,18 +39,20 @@ class _HomePageState extends State<HomePage> {
         Stack(
           children: [
             ListView.builder(
+              
               itemCount: wkoutList.length,
               itemBuilder: (_, index) {
+                int reverseIndex = wkoutList.length - 1 - index;
                 return ListTile(
-                  tileColor: wkoutList[index].c,
-                  title: Text(wkoutList[index].wkoutName),                
+                  tileColor: wkoutList[reverseIndex].c,
+                  title: Text(wkoutList[reverseIndex].wkoutName),                
                   shape: RoundedRectangleBorder(
                     side: const BorderSide(width: 7, color: Colors.white),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   leading: CircleAvatar(
                     backgroundColor: Colors.black,
-                    child: Text(wkoutList[index].emoji),
+                    child: Text(wkoutList[reverseIndex].emoji),
                   ),
                 );
               },
