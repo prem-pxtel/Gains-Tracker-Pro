@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'randfuncs.dart';
+import 'package:intl/intl.dart';
 
 class Workout {
   String wkoutName =  'New Workout';
@@ -7,8 +8,13 @@ class Workout {
   List<Exercise> exList = [];
   String emoji = randEmoji();
   Color c = randColor();
-  Workout(this.wkoutName);
-  //comment
+  Workout() {
+    final DateTime now = DateTime.now();
+    final DateFormat formatter = DateFormat('MMMMd');
+    formatter.add_jm();
+    final String formattedDate = formatter.format(now);
+    wkoutName = formattedDate;
+  }
 }
 
 class Exercise {

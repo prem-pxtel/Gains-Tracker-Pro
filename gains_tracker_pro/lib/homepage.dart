@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'calendar.dart';
 import 'other.dart';
 import 'classes.dart';
-import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,11 +25,7 @@ class _HomePageState extends State<HomePage> {
         child:const Icon(Icons.add),
         onPressed: () {
           setState(() {
-            final DateTime now = DateTime.now();
-            final DateFormat formatter = DateFormat('MMMMd');
-            formatter.add_jm();
-            final String formattedDate = formatter.format(now);
-            Workout newWkout = Workout(formattedDate);
+            Workout newWkout = Workout();
             wkoutList.add(newWkout);
           });
         }
