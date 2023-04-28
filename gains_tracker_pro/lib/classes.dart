@@ -8,6 +8,7 @@ class Workout {
   String emoji = randEmoji();
   Color c = randColor();
   Workout(this.wkoutName);
+  //comment
 }
 
 class Exercise {
