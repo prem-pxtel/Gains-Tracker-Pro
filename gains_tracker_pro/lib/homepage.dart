@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                   onDismissed: (direction) {
                     // Remove the item from the data source.
                     setState(() {
-                      wkoutList.removeAt(index);
+                      wkoutList.removeAt(reverseIndex);
                     });
                     // Then show a snackbar.
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Workout removed')));
