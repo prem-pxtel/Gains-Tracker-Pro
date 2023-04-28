@@ -67,12 +67,10 @@ class _HomePageState extends State<HomePage> {
                       side: BorderSide(
                         width: 7,
                         color: Theme.of(context).brightness == Brightness.dark
-                          ? const Color.fromARGB(1, 46, 46, 46)
+                          ? const Color.fromARGB(255, 46, 46, 46)
                           : Colors.white,
                       ),
-                      borderRadius: Theme.of(context).brightness == Brightness.dark
-                        ? BorderRadius.circular(0)
-                        : BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                     leading: CircleAvatar(
                       backgroundColor: Colors.black,
