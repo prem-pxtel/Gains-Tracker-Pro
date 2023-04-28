@@ -14,6 +14,7 @@ class Workout {
     formatter.add_jm();
     final String formattedDate = formatter.format(now);
     wkoutName = formattedDate;
+    //comment
   }
 }
 
