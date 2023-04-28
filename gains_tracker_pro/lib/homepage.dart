@@ -38,29 +38,50 @@ class _HomePageState extends State<HomePage> {
       body:<Widget>[
         Stack(
           children: [
+            if (wkoutList.isEmpty) const Center(child: Text('No gains ❌')),
             ListView.builder(
-              
               itemCount: wkoutList.length,
               itemBuilder: (_, index) {
                 int reverseIndex = wkoutList.length - 1 - index;
-                return ListTile(
-                  tileColor: wkoutList[reverseIndex].c,
-                  title: Text(wkoutList[reverseIndex].wkoutName),                
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      width: 7,
-                      color: Theme.of(context).brightness == Brightness.dark
-                        ? const Color.fromARGB(1, 46, 46, 46)
-                        : Colors.white,
+                return Dismissible(
+                  key: UniqueKey(),
+                  background: Container(
+                    color: Colors.red,
+                    child: const Padding(
+                      padding: EdgeInsets.only(left:320), 
+                      child: Icon(Icons.clear),
                     ),
-                    borderRadius: Theme.of(context).brightness == Brightness.dark
-                      ? BorderRadius.circular(0)
-                      : BorderRadius.circular(20),
                   ),
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.black,
-                    child: Text(wkoutList[reverseIndex].emoji),
-                  ),
+                  onDismissed: (direction) {
+                    // Remove the item from the data source.
+                    setState(() {
+                      wkoutList.removeAt(index);
+                    });
+                    // Then show a snackbar.
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Workout removed')));
+                  },
+                  child: ListTile(
+                    tileColor: wkoutList[reverseIndex].c,
+                    title: Text(wkoutList[reverseIndex].wkoutName),                
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        width: 7,
+                        color: Theme.of(context).brightness == Brightness.dark
+                          ? const Color.fromARGB(1, 46, 46, 46)
+                          : Colors.white,
+                      ),
+                      borderRadius: Theme.of(context).brightness == Brightness.dark
+                        ? BorderRadius.circular(0)
+                        : BorderRadius.circular(20),
+                    ),
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.black,
+                      child: Text(wkoutList[reverseIndex].emoji),
+                    ),
+                    onTap: () {
+                      // open separate Workout screen where you can then add Exercises and get prompted to enter Exercise info
+                    }
+                  )
                 );
               },
             ),
