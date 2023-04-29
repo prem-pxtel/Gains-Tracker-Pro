@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gains_tracker_pro/exercises.dart';
 import 'calendar.dart';
 import 'other.dart';
 import 'classes.dart';
@@ -7,10 +8,10 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   List<Workout> wkoutList = [];
   int currentPageIndex = 0;
 
@@ -72,6 +73,10 @@ class _HomePageState extends State<HomePage> {
                       child: Text(wkoutList[reverseIndex].emoji),
                     ),
                     onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const ExerciseScreen(),),
+                      );
                       // open separate Workout screen where you can then add Exercises and get prompted to enter Exercise info
                     }
                   )
