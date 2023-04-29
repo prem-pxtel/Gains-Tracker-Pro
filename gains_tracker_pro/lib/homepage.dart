@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gains_tracker_pro/exercises.dart';
+import 'classes.dart';
 import 'calendar.dart';
 import 'other.dart';
-import 'classes.dart';
+
+List<Workout> wkoutList = [];
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,7 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  List<Workout> wkoutList = [];
   int currentPageIndex = 0;
 
   @override
@@ -34,7 +35,7 @@ class HomePageState extends State<HomePage> {
       body:<Widget>[
         Stack(
           children: [
-            if (wkoutList.isEmpty) const Center(child: Text('No gains ❌')),
+            if (wkoutList.isEmpty) const Center(child: Text('No Gains ❌')),
             ListView.builder(
               itemCount: wkoutList.length,
               itemBuilder: (_, index) {
@@ -75,7 +76,10 @@ class HomePageState extends State<HomePage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (_) => const ExerciseScreen(),),
+                        MaterialPageRoute(
+                          builder: (_) => ExerciseScreen(
+                            wkoutIndex: reverseIndex),
+                        ),
                       );
                       // open separate Workout screen where you can then add Exercises and get prompted to enter Exercise info
                     }

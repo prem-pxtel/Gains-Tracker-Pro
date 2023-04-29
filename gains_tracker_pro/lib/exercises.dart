@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'homepage.dart';
+import 'classes.dart';
 
 class ExerciseScreen extends StatefulWidget {
-  const ExerciseScreen({super.key});
+  final int wkoutIndex;
+  const ExerciseScreen({super.key, required this.wkoutIndex});
 
   @override
   State<ExerciseScreen> createState() => _ExerciseScreenState();
@@ -20,17 +22,18 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
         child:const Icon(Icons.add),
         onPressed: () {
           setState(() {
-
+            Exercise newEx = Exercise();
+            wkoutList[widget.wkoutIndex].exList.add(newEx);
           });
         }
       ),
       body: Stack(
         children: [
-          if (HomePageState().wkoutList.isEmpty) const Center(child: Text('No gains ❌')),
+          if (wkoutList[widget.wkoutIndex].exList.isEmpty) const Center(child: Text('Add your first exercise, by tapping +')),
           ListView.builder(
-            itemCount: HomePageState().wkoutList.length,
+            itemCount: wkoutList[widget.wkoutIndex].exList.length,
             itemBuilder: (_, index) {
-              int reverseIndex = HomePageState().wkoutList.length - 1 - index;
+              int reverseIndex = wkoutList[widget.wkoutIndex].exList.length - 1 - index;
               return Dismissible(
                 key: UniqueKey(),
                 background: Container(
@@ -43,30 +46,51 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                 onDismissed: (direction) {
                   // Remove the item from the data source.
                   setState(() {
-                    HomePageState().wkoutList.removeAt(reverseIndex);
+                    wkoutList[widget.wkoutIndex].exList.removeAt(reverseIndex);
                   });
                   // Then show a snackbar.
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Workout removed')));
                 },
-                child: ListTile(
-                  tileColor: HomePageState().wkoutList[reverseIndex].c,
-                  title: Text(HomePageState().wkoutList[reverseIndex].wkoutName),                
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      width: 7,
-                      color: Theme.of(context).brightness == Brightness.dark
-                        ? const Color.fromARGB(255, 46, 46, 46)
-                        : Colors.white,
+                child: Container(
+                  height: 100,
+                  margin: const EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.0),
+                    color: Theme.of(context).brightness == Brightness.dark
+                      ? Color.fromARGB(90, 90, 90, 90)
+                      : Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(context).brightness == Brightness.dark
+                          ? const Color.fromARGB(255, 46, 46, 46)
+                          : Color.fromARGB(255, 225, 225, 225),
+                        blurRadius: 5.0,
+                        offset: Offset(0, 5), // shadow direction: bottom right
+                      ),
+                    ],
+                  ),
+                  child: ListTile(
+                    tileColor: Theme.of(context).brightness == Brightness.dark
+                      ? const Color.fromARGB(255, 46, 46, 46)
+                      : Colors.white,
+                    title: Text(wkoutList[widget.wkoutIndex].exList[reverseIndex].exName),                
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        width: 7,
+                        color: Theme.of(context).brightness == Brightness.dark
+                          ? const Color.fromARGB(255, 46, 46, 46)
+                          : Colors.white,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    borderRadius: BorderRadius.circular(20),
+                    leading: CircleAvatar(
+                      radius: 6,
+                      backgroundColor: Colors.red.shade400,
+                    ),
+                    onTap: () {
+                      // open separate Workout screen where you can then add Exercises and get prompted to enter Exercise info
+                    }
                   ),
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.black,
-                    child: Text(HomePageState().wkoutList[reverseIndex].emoji),
-                  ),
-                  onTap: () {
-                    // open separate Workout screen where you can then add Exercises and get prompted to enter Exercise info
-                  }
                 ),
               );
             },
