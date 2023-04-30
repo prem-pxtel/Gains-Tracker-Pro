@@ -15,7 +15,6 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
