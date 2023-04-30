@@ -17,7 +17,7 @@ class MyHeatMap extends StatelessWidget {
   colorMode: ColorMode.opacity,
   showText: false,
   scrollable: true,
-  colorsets: {
+  colorsets: const {
     1: Colors.red,
     3: Colors.orange,
     5: Colors.yellow,

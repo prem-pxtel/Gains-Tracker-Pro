@@ -1,13 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'dart:math';
-
 import 'package:table_calendar/table_calendar.dart';
 
 void main() {
-
   runApp( MyApp() );
-
 }
 
 Color randColor() {

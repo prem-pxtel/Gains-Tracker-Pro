@@ -13,6 +13,7 @@ class ExerciseScreen extends StatefulWidget {
 class _ExerciseScreenState extends State<ExerciseScreen> {
   @override
   Widget build(BuildContext context) {
+    int testCount = 0;
     return Scaffold(
       appBar:AppBar(
         backgroundColor: Colors.black,
@@ -34,64 +35,56 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
             itemCount: wkoutList[widget.wkoutIndex].exList.length,
             itemBuilder: (_, index) {
               int reverseIndex = wkoutList[widget.wkoutIndex].exList.length - 1 - index;
-              return Dismissible(
-                key: UniqueKey(),
-                background: Container(
-                  color: Colors.red,
-                  child: const Padding(
-                    padding: EdgeInsets.only(left:320), 
-                    child: Icon(Icons.clear),
-                  ),
-                ),
-                onDismissed: (direction) {
-                  // Remove the item from the data source.
-                  setState(() {
-                    wkoutList[widget.wkoutIndex].exList.removeAt(reverseIndex);
-                  });
-                  // Then show a snackbar.
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Workout removed')));
-                },
-                child: Container(
-                  height: 100,
-                  margin: const EdgeInsets.all(10.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.0),
-                    color: Theme.of(context).brightness == Brightness.dark
-                      ? Color.fromARGB(90, 90, 90, 90)
-                      : Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Theme.of(context).brightness == Brightness.dark
-                          ? const Color.fromARGB(255, 46, 46, 46)
-                          : Color.fromARGB(255, 225, 225, 225),
-                        blurRadius: 5.0,
-                        offset: Offset(0, 5), // shadow direction: bottom right
+              return ExpansionTile(
+                title: Text('Exercise $index'),
+                children: <Widget> [ 
+                  Dismissible(
+                    key: UniqueKey(),
+                    background: Container(
+                      color: Colors.red,
+                      child: const Padding(
+                        padding: EdgeInsets.only(left:320), 
+                        child: Icon(Icons.clear),
                       ),
-                    ],
-                  ),
-                  child: ListTile(
-                    tileColor: Theme.of(context).brightness == Brightness.dark
-                      ? const Color.fromARGB(255, 46, 46, 46)
-                      : Colors.white,
-                    title: Text(wkoutList[widget.wkoutIndex].exList[reverseIndex].exName),                
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        width: 7,
-                        color: Theme.of(context).brightness == Brightness.dark
+                    ),
+                    onDismissed: (direction) {
+                      // Remove the item from the data source.
+                      setState(() {
+                        wkoutList[widget.wkoutIndex].exList.removeAt(reverseIndex);
+                      });
+                      // Then show a snackbar.
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Workout removed')));
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.all(10.0),
+                      child: ListTile(
+                        tileColor: Theme.of(context).brightness == Brightness.dark
                           ? const Color.fromARGB(255, 46, 46, 46)
                           : Colors.white,
+                        title: Text(wkoutList[widget.wkoutIndex].exList[reverseIndex].exName),                
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            width: 7,
+                            color: Theme.of(context).brightness == Brightness.dark
+                              ? const Color.fromARGB(255, 46, 46, 46)
+                              : Colors.white,
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        leading: Transform.translate(
+                          offset: const Offset(0, 5),
+                          child: CircleAvatar(
+                            radius: 6,
+                            backgroundColor: Colors.red.shade400,
+                          ),
+                        ),
+                        onTap: () {
+                          // open separate Workout screen where you can then add Exercises and get prompted to enter Exercise info
+                        }
                       ),
-                      borderRadius: BorderRadius.circular(20),
                     ),
-                    leading: CircleAvatar(
-                      radius: 6,
-                      backgroundColor: Colors.red.shade400,
-                    ),
-                    onTap: () {
-                      // open separate Workout screen where you can then add Exercises and get prompted to enter Exercise info
-                    }
-                  ),
-                ),
+                  )
+                ]
               );
             },
           ),

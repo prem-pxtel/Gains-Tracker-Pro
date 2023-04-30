@@ -35,7 +35,7 @@ class _CalendarPageState extends State<CalendarPage> {
   colorMode: ColorMode.opacity,
   showText: false,
   scrollable: true,
-  colorsets: {
+  colorsets: const {
     1: Color.fromARGB(225, 76, 175, 79),
     2: Color.fromARGB(50, 76, 175, 79),
     3: Color.fromARGB(76, 76, 175, 79),
