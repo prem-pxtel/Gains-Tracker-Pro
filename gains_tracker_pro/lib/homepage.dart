@@ -91,8 +91,7 @@ class HomePageState extends State<HomePage> {
         ),
         Container(
           color: const Color.fromARGB(100, 100, 100, 100),
-          child: Center(
-            child: const CalendarPage()),
+          child: const Center(child: CalendarPage()),
         ),
         const OtherPage(),
       ][currentPageIndex],
