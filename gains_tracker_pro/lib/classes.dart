@@ -8,14 +8,13 @@ class Workout {
   List<Exercise> exList = [];
   String emoji = randEmoji();
   Color c = randColor();
-  Map workoutmap = {};
   Workout() {
     final DateTime now = DateTime.now();
     final DateFormat formatter = DateFormat('MMMMd');
     formatter.add_jm();
     final String formattedDate = formatter.format(now);
     wkoutName = formattedDate;
-    workoutmap.putIfAbsent(now, () => 'test');
+
   }
 }
 

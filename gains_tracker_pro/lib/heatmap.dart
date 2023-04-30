@@ -1,24 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+import 'homepage.dart';
 
-class CalendarPage extends StatelessWidget {
+
+//change it later
+//int volume(int a){
+//  var volumesum = 0;
+//  for (int i= 1; i<= wkoutList[a].exList.length; i++){
+//    volumesum += wkoutList[a].exList[i].setList.length; 
+//  }
+//  return volumesum;
+//}
+
+int volume(int a){
+  return wkoutList[a].exList.length;
+}
+
+var volumedatepair = {
+  for (int i = 1; i<=wkoutList.length;i++) wkoutList[i-1].dt : volume(i-1)
+};
+
+class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
 
   @override
+  State<CalendarPage> createState() => _CalendarPageState();
+}
+
+class _CalendarPageState extends State<CalendarPage> {
+  @override
   Widget build(BuildContext context) {
     return HeatMap(
-  datasets: {
-    DateTime(2021, 1, 6): 3,
-    DateTime(2021, 1, 7): 7,
-    DateTime(2021, 1, 8): 10,
-    DateTime(2021, 1, 9): 13,
-    DateTime(2021, 1, 13): 6,
-  },
+  datasets: volumedatepair,
   colorMode: ColorMode.opacity,
   showText: false,
   scrollable: true,
   colorsets: {
-    1: Color.fromARGB(25, 76, 175, 79),
+    1: Color.fromARGB(225, 76, 175, 79),
     2: Color.fromARGB(50, 76, 175, 79),
     3: Color.fromARGB(76, 76, 175, 79),
     4: Color.fromARGB(101, 76, 175, 79),

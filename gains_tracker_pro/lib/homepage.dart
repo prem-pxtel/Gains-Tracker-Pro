@@ -89,7 +89,11 @@ class HomePageState extends State<HomePage> {
             ),
           ]
         ),
-        const CalendarPage(),
+        Container(
+          color: const Color.fromARGB(100, 100, 100, 100),
+          child: Center(
+            child: const CalendarPage()),
+        ),
         const OtherPage(),
       ][currentPageIndex],
       bottomNavigationBar: NavigationBar(
