@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gains_tracker_pro/exercises.dart';
 import 'classes.dart';
-import 'calendar.dart';
+import 'heatmap.dart';
 import 'other.dart';
 
 List<Workout> wkoutList = [];
