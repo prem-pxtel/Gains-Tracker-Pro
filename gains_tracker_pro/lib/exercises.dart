@@ -68,6 +68,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     itemCount: wkoutList[widget.wkoutIndex].exList[exIndex].setList.length,
                     itemBuilder: (_, setIndex) {
                       int setIndexPlus1 = setIndex + 1;
+                      int reps = wkoutList[widget.wkoutIndex].exList[exIndex].setList[setIndex].repCount;
                       return Dismissible(
                         key: UniqueKey(),
                         background: Container(
@@ -108,6 +109,50 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                 backgroundColor: Colors.red.shade400,
                               ),
                             ),
+                            trailing: CircleAvatar(
+                              backgroundColor: const Color.fromARGB(100, 46, 46, 46),
+                              radius: 18,
+                              child: IconButton(
+                                icon: Text('$reps'), 
+                                onPressed: () {
+                                  setState(() {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        title: const Text('New Exercise'),
+                                        content: const Text('Please enter your shits now.'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () { Navigator.pop(context); }, 
+                                            child: const Text('Cancel')
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                
+                                              });
+                                            }, 
+                                            child: const Text('Save')
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  });
+                                }
+                              ),
+                            ),
+                            /*Row(
+                              children: <Widget> [ 
+                                (reps != 0) 
+                                ? IconButton(
+                                  icon: const Icon(Icons.remove),
+                                  onPressed: () => setState(() => reps--),
+                                ) : Container(),
+                                  Text(reps.toString()),
+                                  IconButton(icon: const Icon(Icons.add),onPressed: () => setState(() => reps++))
+                              ],
+                            ),
+                            */
                             onTap: () {
                               // open separate Workout screen where you can then    add Exercises and get prompted to enter Exercise info
                             }
