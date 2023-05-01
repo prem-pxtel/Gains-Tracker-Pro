@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'homepage.dart';
 import 'classes.dart';
 
@@ -12,12 +14,3 @@ int getVol(List<Exercise> exList) {
   return repCount;
 }
 
-void updateMap(DateTime key) {
-  int volume = 0;
-  for (int i = 0; i < wkoutList.length; ++i) {
-    if (wkoutList[i].dt == key) {
-      volume += getVol(wkoutList[i].exList);
-    }
-  }
-  wkoutMap[key] = volume;
-}

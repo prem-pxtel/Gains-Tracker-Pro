@@ -12,13 +12,7 @@ import 'homepage.dart';
 //  return volumesum;
 //}
 
-int volume(int a){
-  return wkoutList[a].exList.length;
-}
 
-var volumedatepair = {
-  for (int i = 0; i<wkoutList.length;i++) wkoutList[i].dt : volume(i)
-};
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
@@ -31,7 +25,7 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
     return HeatMap(
-  datasets: volumedatepair,
+  datasets: wkoutMap,
   colorMode: ColorMode.opacity,
   showText: false,
   scrollable: true,

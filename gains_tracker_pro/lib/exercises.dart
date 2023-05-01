@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gains_tracker_pro/mapfuncs.dart';
 import 'homepage.dart';
 import 'classes.dart';
 
@@ -42,6 +43,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                         newEx.setList.add(testSet);
                         wkoutList[widget.wkoutIndex].exList.add(newEx);
                         Navigator.pop(context);
+
+                        //updating heatmap
+                        wkoutMap.putIfAbsent(wkoutList[wkoutList.length-1].dt, () => getVol(wkoutList[wkoutList.length -1].exList));
                       });
                     }, 
                     child: const Text('Save')
