@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'homepage.dart';
 import 'classes.dart';
-import 'mapfuncs.dart';
 
 class ExerciseScreen extends StatefulWidget {
   final int wkoutIndex;
@@ -23,14 +22,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
         child:const Icon(Icons.add),
         onPressed: () {
           setState(() {
-            Exercise newEx = Exercise();
-            Set testSet = Set();
-            testSet.repCount = 10;
-            newEx.setList.add(testSet);
-            Set testSet2 = Set();
-            testSet2.repCount = 10;
-            newEx.setList.add(testSet2);
-            wkoutList[widget.wkoutIndex].exList.add(newEx);
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
@@ -42,7 +33,17 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     child: const Text('Cancel')
                   ),
                   TextButton(
-                    onPressed: () {}, 
+                    onPressed: () {
+                      setState(() {
+                        // update exList with correct input eventually
+                        Exercise newEx = Exercise();
+                        Set testSet = Set();
+                        testSet.repCount = 10;
+                        newEx.setList.add(testSet);
+                        wkoutList[widget.wkoutIndex].exList.add(newEx);
+                        Navigator.pop(context);
+                      });
+                    }, 
                     child: const Text('Save')
                   ),
                 ],
