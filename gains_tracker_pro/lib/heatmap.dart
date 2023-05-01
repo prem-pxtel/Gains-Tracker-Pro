@@ -17,7 +17,7 @@ int volume(int a){
 }
 
 var volumedatepair = {
-  for (int i = 1; i<=wkoutList.length;i++) wkoutList[i-1].dt : volume(i-1)
+  for (int i = 0; i<wkoutList.length;i++) wkoutList[i].dt : volume(i)
 };
 
 class CalendarPage extends StatefulWidget {

@@ -1,11 +1,9 @@
 import 'homepage.dart';
 import 'classes.dart';
 
-Map<DateTime, int> wkoutMap = {};
-
 int getVol(List<Exercise> exList) {
   int repCount = 0;
-  for (int i = 0; i < exList.length; i++) {
+  for (int i = 0; i < exList.length; ++i) {
     int numSets = exList[i].setList.length;
     for (int j = 0; j < numSets; ++j) {
       repCount += exList[i].setList[j].repCount;
@@ -23,4 +21,3 @@ void updateMap(DateTime key) {
   }
   wkoutMap[key] = volume;
 }
-

@@ -5,6 +5,7 @@ import 'heatmap.dart';
 import 'other.dart';
 
 List<Workout> wkoutList = [];
+Map<DateTime, int> wkoutMap = {};
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'homepage.dart';
 import 'classes.dart';
+import 'mapfuncs.dart';
 
 class ExerciseScreen extends StatefulWidget {
   final int wkoutIndex;
@@ -30,20 +31,19 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
             testSet2.repCount = 10;
             newEx.setList.add(testSet2);
             wkoutList[widget.wkoutIndex].exList.add(newEx);
-
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                title: Text('New Exercise'),
-                content: Text('Please enter your shits now.'),
+                title: const Text('New Exercise'),
+                content: const Text('Please enter your shits now.'),
                 actions: [
                   TextButton(
                     onPressed: () { Navigator.pop(context); }, 
-                    child: Text('Cancel')
+                    child: const Text('Cancel')
                   ),
                   TextButton(
                     onPressed: () {}, 
-                    child: Text('Save')
+                    child: const Text('Save')
                   ),
                 ],
               ),

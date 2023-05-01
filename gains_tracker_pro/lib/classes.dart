@@ -4,17 +4,17 @@ import 'package:intl/intl.dart';
 
 class Workout {
   String wkoutName =  'New Workout';
-  DateTime dt = DateTime.now();
+  late DateTime dt;
   List<Exercise> exList = [];
   String emoji = randEmoji();
   Color c = randColor();
   Workout() {
     final DateTime now = DateTime.now();
+    dt = now;
     final DateFormat formatter = DateFormat('MMMMd');
     formatter.add_jm();
     final String formattedDate = formatter.format(now);
     wkoutName = formattedDate;
-
   }
 }
 
