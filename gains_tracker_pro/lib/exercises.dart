@@ -37,7 +37,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                         controller: _textController,
                         decoration: InputDecoration(
                           border: const OutlineInputBorder(),
-                          hintText: 'GAINTSHINT??',
+                          hintText: 'e.g. Bench Press',
                           suffixIcon: IconButton(
                             icon: const Icon(Icons.clear),
                             onPressed: () {
