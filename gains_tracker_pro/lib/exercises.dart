@@ -117,7 +117,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                   setState(() {
                                     showDialog(
                                       context: context,
-                                      builder: (context) => UpdateRepsAlertDialog(),
+                                      builder: (context) => const UpdateRepsAlertDialog(),
                                     );
                                   });
                                 }

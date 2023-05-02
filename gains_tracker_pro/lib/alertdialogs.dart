@@ -25,7 +25,7 @@ class AddExerciseAlertDialog extends StatelessWidget {
       title: const Text('New Exercise'),
       content: Stack(
         children: [
-          const Text('Please enter your workout information'),   
+          const Text('Please enter your exrecise information'),   
           Padding(
             padding: const EdgeInsets.only(top: 55.0), child: TextField(
               controller: textController,
@@ -47,7 +47,8 @@ class AddExerciseAlertDialog extends StatelessWidget {
           onPressed: () { Navigator.pop(context); }, 
           child: const Text('Cancel')
         ),
-        TextButton(
+        MaterialButton(
+          color: Colors.blue,
           onPressed: () {
             //setState(() { must find a way to setState of ExerciseScreen widget --> CALLBACK()
               callback();
@@ -72,13 +73,14 @@ class UpdateRepsAlertDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('New Exercise'),
-      content: const Text('Please enter your shits now.'),
+      content: const Text('Please enter your set information'),
       actions: [
         TextButton(
           onPressed: () { Navigator.pop(context); }, 
           child: const Text('Cancel')
         ),
-        TextButton(
+        MaterialButton(
+          color: Colors.blue,
           onPressed: () {
             
           }, 
