@@ -12,6 +12,8 @@ class ExerciseScreen extends StatefulWidget {
 }
 
 class _ExerciseScreenState extends State<ExerciseScreen> {
+  final _textController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +29,25 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               context: context,
               builder: (context) => AlertDialog(
                 title: const Text('New Exercise'),
-                content: const Text('Please enter your shits now.'),
+                content: Stack(
+                  children: [
+                    const Text('Please enter your workout information'),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 55.0), child: TextField(
+                        controller: _textController,
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          hintText: 'GAINTSHINT??',
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.clear),
+                            onPressed: () {
+                              _textController.clear();
+                            }  
+                          )
+                        ),
+                      ),
+                    ),
+                  ]),
                 actions: [
                   TextButton(
                     onPressed: () { Navigator.pop(context); }, 
@@ -41,11 +61,13 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                         Set testSet = Set();
                         testSet.repCount = 10;
                         newEx.setList.add(testSet);
+                        newEx.exName = _textController.text;
                         wkoutList[widget.wkoutIndex].exList.add(newEx);
+                        _textController.clear();
                         Navigator.pop(context);
 
                         //updating heatmap
-                        wkoutMap.putIfAbsent(wkoutList[wkoutList.length-1].dt, () => getRepCount(wkoutList[wkoutList.length -1].exList));
+                        wkoutMap.putIfAbsent(wkoutList[wkoutList.length].dt, () => getRepCount(wkoutList[wkoutList.length].exList));
                       });
                     }, 
                     child: const Text('Save')
@@ -65,7 +87,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
             itemBuilder: (_, exIndex) {
               int exIndexPlus1 = exIndex + 1;
               return ExpansionTile( 
-                title: Text('Exercise $exIndexPlus1'),
+                title: Text(wkoutList[widget.wkoutIndex].exList[exIndex].exName),
                 children: <Widget> [
                   ListView.builder(
                     shrinkWrap: true,
