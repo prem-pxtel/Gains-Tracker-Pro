@@ -65,9 +65,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                         wkoutList[widget.wkoutIndex].exList.add(newEx);
                         _textController.clear();
                         Navigator.pop(context);
-
                         //updating heatmap
-                        wkoutMap.putIfAbsent(wkoutList[wkoutList.length].dt, () => getRepCount(wkoutList[wkoutList.length].exList));
+                        wkoutMap.putIfAbsent(DateUtils.dateOnly(wkoutList[wkoutList.length-1].dt), () => getRepCount(wkoutList[wkoutList.length -1].exList));
                       });
                     }, 
                     child: const Text('Save')
