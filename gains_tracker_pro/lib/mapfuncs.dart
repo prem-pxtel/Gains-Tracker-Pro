@@ -1,15 +1,26 @@
-import 'package:flutter/material.dart';
 import 'homepage.dart';
 import 'classes.dart';
 
-
-int getRepCount(List<Exercise> exList) {
-  int repCount = 0;
+int getVol(List<Exercise> exList) {
+  int totalVol = 0;
   for (int i = 0; i < exList.length; ++i) {
     int numSets = exList[i].setList.length;
     for (int j = 0; j < numSets; ++j) {
-      repCount += exList[i].setList[j].repCount;
+      int repCount = exList[i].setList[j].repCount;
+      int weight = exList[i].setList[j].weight;
+      totalVol += (repCount * weight);
     }
   }
-  return repCount;
+  return totalVol;
+}
+
+// no need to use:
+void updateMap(DateTime key) {
+  int volume = 0;
+  for (int i = 0; i < wkoutList.length; ++i) {
+    if (wkoutList[i].dt == key) {
+      volume += getVol(wkoutList[i].exList);
+    }
+  }
+  wkoutMap[key] = volume;
 }

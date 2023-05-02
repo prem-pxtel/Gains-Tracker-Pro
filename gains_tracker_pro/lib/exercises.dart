@@ -60,13 +60,15 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                         Exercise newEx = Exercise();
                         Set testSet = Set();
                         testSet.repCount = 10;
+                        testSet.weight = 50;
                         newEx.setList.add(testSet);
                         newEx.exName = _textController.text;
                         wkoutList[widget.wkoutIndex].exList.add(newEx);
                         _textController.clear();
                         Navigator.pop(context);
+
                         //updating heatmap
-                        wkoutMap.putIfAbsent(DateUtils.dateOnly(wkoutList[wkoutList.length-1].dt), () => getRepCount(wkoutList[wkoutList.length -1].exList));
+                        wkoutMap.putIfAbsent(DateUtils.dateOnly(wkoutList[wkoutList.length - 1].dt), () => getVol(wkoutList[wkoutList.length - 1].exList));
                       });
                     }, 
                     child: const Text('Save')
@@ -84,7 +86,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
           ListView.builder(
             itemCount: wkoutList[widget.wkoutIndex].exList.length,
             itemBuilder: (_, exIndex) {
-              int exIndexPlus1 = exIndex + 1;
               return ExpansionTile( 
                 title: Text(wkoutList[widget.wkoutIndex].exList[exIndex].exName),
                 children: <Widget> [

@@ -29,4 +29,5 @@ class Exercise {
 
 class Set {
   int repCount = 0;
+  int weight = 0;
 }
