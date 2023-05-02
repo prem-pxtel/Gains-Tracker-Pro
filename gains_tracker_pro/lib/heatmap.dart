@@ -13,7 +13,6 @@ import 'homepage.dart';
 //}
 
 
-
 class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
 
@@ -21,16 +20,29 @@ class CalendarPage extends StatefulWidget {
   State<CalendarPage> createState() => _CalendarPageState();
 }
 
+
 class _CalendarPageState extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
+
+    var thevalue = 0;
+
+    wkoutMap.forEach((k,v){
+      if(v>thevalue){
+        thevalue = v;
+      }
+    });
+
+    Map<DateTime, int> wkoutMap10 =
+    {for(var i = 1; i <= wkoutMap.length;i++) wkoutMap.keys.elementAt(i) : (wkoutMap.values.elementAt(i)/thevalue).round()*10};
+
     return HeatMap(
-  datasets: wkoutMap,
+  datasets: wkoutMap10,
   colorMode: ColorMode.opacity,
   showText: false,
   scrollable: true,
   colorsets: const {
-    1: Color.fromARGB(225, 76, 175, 79),
+    1: Color.fromARGB(25, 76, 175, 79),
     2: Color.fromARGB(50, 76, 175, 79),
     3: Color.fromARGB(76, 76, 175, 79),
     4: Color.fromARGB(101, 76, 175, 79),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'homepage.dart';
 import 'classes.dart';
 
-int getVol(List<Exercise> exList) {
+int getRepCount(List<Exercise> exList) {
   int repCount = 0;
   for (int i = 0; i < exList.length; ++i) {
     int numSets = exList[i].setList.length;
