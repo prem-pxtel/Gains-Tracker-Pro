@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'classes.dart';
-import 'homepage.dart';
-import 'mapfuncs.dart';
 
 // note: constructor run before widget is inserted in tree, initState() is after
 // there is also dispose()
