@@ -145,8 +145,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                     showDialog(
                                       context: context,
                                       builder: (context) => AlertDialog(
-                                        title: const Text('Update Reps'),
-                                        content: const Text('Update your shits rn'),
+                                        title: const Text('New Exercise'),
+                                        content: const Text('Please enter your shits now.'),
                                         actions: [
                                           TextButton(
                                             onPressed: () { Navigator.pop(context); }, 

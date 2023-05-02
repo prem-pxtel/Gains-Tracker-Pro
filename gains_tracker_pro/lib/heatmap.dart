@@ -3,16 +3,6 @@ import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'homepage.dart';
 
 
-//change it later
-//int volume(int a){
-//  var volumesum = 0;
-//  for (int i= 1; i<= wkoutList[a].exList.length; i++){
-//    volumesum += wkoutList[a].exList[i].setList.length; 
-//  }
-//  return volumesum;
-//}
-
-
 class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
 
@@ -34,10 +24,13 @@ class _CalendarPageState extends State<CalendarPage> {
     });
 
     Map<DateTime, int> wkoutMap10 =
-    {for(var i = 1; i <= wkoutMap.length;i++) wkoutMap.keys.elementAt(i) : (wkoutMap.values.elementAt(i)/thevalue).round()*10};
+    {for(var i = 1; i <= wkoutMap.length;i++) wkoutMap.keys.elementAt(i-1) : (wkoutMap.values.elementAt(i-1)/thevalue).round()*10};
 
     return HeatMap(
   datasets: wkoutMap10,
+  size: 30,
+  startDate: DateTime.now(),
+  endDate: DateTime.now().add(Duration(days: 30)),
   colorMode: ColorMode.opacity,
   showText: false,
   scrollable: true,

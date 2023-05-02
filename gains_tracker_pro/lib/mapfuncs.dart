@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'homepage.dart';
 import 'classes.dart';
 
-int getRepCount(List<Exercise> exList) {
+
+int getRepcount(List<Exercise> exList) {
   int repCount = 0;
   for (int i = 0; i < exList.length; ++i) {
     int numSets = exList[i].setList.length;
@@ -13,4 +13,3 @@ int getRepCount(List<Exercise> exList) {
   }
   return repCount;
 }
-
