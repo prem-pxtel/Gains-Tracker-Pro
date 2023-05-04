@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gains_tracker_pro/mapfuncs.dart';
 import 'homepage.dart';
+import 'alertdialogs.dart';
 import 'classes.dart';
+import 'mapfuncs.dart';
 
 class ExerciseScreen extends StatefulWidget {
   final int wkoutIndex;
@@ -12,12 +13,29 @@ class ExerciseScreen extends StatefulWidget {
 }
 
 class _ExerciseScreenState extends State<ExerciseScreen> {
-  final _textController = TextEditingController();
+  final textController = TextEditingController();
+  callback() {
+    setState(() {
+      // update exList with correct input eventually
+      Exercise newEx = Exercise();
+      Set testSet = Set();
+      testSet.repCount = 10;
+      testSet.weight = 50;
+      newEx.setList.add(testSet);
+      newEx.exName = textController.text;
+      wkoutList[widget.wkoutIndex].exList.add(newEx);
+      textController.clear();
+      Navigator.pop(context);
+
+      //updating heatmap
+      wkoutMap.putIfAbsent(DateUtils.dateOnly(wkoutList[wkoutList.length - 1].dt), () => getVol(wkoutList[wkoutList.length - 1].exList));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
+      appBar: AppBar(
         backgroundColor: Colors.black,
         title: const Text('Your Workout'),
       ),
@@ -27,54 +45,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
           setState(() {
             showDialog(
               context: context,
-              builder: (context) => AlertDialog(
-                title: const Text('New Exercise'),
-                content: Stack(
-                  children: [
-                    const Text('Please enter your workout information'),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 55.0), child: TextField(
-                        controller: _textController,
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          hintText: 'e.g. Bench Press',
-                          suffixIcon: IconButton(
-                            icon: const Icon(Icons.clear),
-                            onPressed: () {
-                              _textController.clear();
-                            }  
-                          )
-                        ),
-                      ),
-                    ),
-                  ]),
-                actions: [
-                  TextButton(
-                    onPressed: () { Navigator.pop(context); }, 
-                    child: const Text('Cancel')
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        // update exList with correct input eventually
-                        Exercise newEx = Exercise();
-                        Set testSet = Set();
-                        testSet.repCount = 10;
-                        testSet.weight = 50;
-                        newEx.setList.add(testSet);
-                        newEx.exName = _textController.text;
-                        wkoutList[widget.wkoutIndex].exList.add(newEx);
-                        _textController.clear();
-                        Navigator.pop(context);
-
-                        //updating heatmap
-                        wkoutMap.putIfAbsent(DateUtils.dateOnly(wkoutList[wkoutList.length - 1].dt), () => getVol(wkoutList[wkoutList.length - 1].exList));
-                      });
-                    }, 
-                    child: const Text('Save')
-                  ),
-                ],
-              ),
+              builder: (context) { // same as (context) => AddExerciseAlertD...
+                return AddExerciseAlertDialog(textController: textController,wkoutIndex: widget.wkoutIndex, callback: callback);
+              }
             );
           });
         }
@@ -144,24 +117,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                   setState(() {
                                     showDialog(
                                       context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: const Text('New Exercise'),
-                                        content: const Text('Please enter your shits now.'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () { Navigator.pop(context); }, 
-                                            child: const Text('Cancel')
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                
-                                              });
-                                            }, 
-                                            child: const Text('Save')
-                                          ),
-                                        ],
-                                      ),
+                                      builder: (context) => const UpdateRepsAlertDialog(),
                                     );
                                   });
                                 }
