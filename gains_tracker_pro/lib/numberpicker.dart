@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gains_tracker_pro/homepage.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'dart:async';
-
-void main() {
-  runApp(const NumberPickerScreen());
-}
+import 'classes.dart';
 
 class NumberPickerScreen extends StatefulWidget {
-  const NumberPickerScreen({super.key});
+  final int wkoutIndex;
+  const NumberPickerScreen({super.key, required this.wkoutIndex});
 
   @override
   State<NumberPickerScreen> createState() => _NumberPickerScreenState();
@@ -77,6 +76,67 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget> [
+              TextButton(
+                onPressed: () {
+                  if (!buttonNull) {
+                    if (timerRun == false && _seconds > 0) {
+                      startTimer();
+                      buttonNull = true;
+                    } else {
+                      cancelTimer();
+                    }
+                  }
+                }, 
+                style: ButtonStyle(backgroundColor: Theme.of(context).brightness == Brightness.dark
+                          ? const MaterialStatePropertyAll(Colors.white)
+                          : const MaterialStatePropertyAll(Colors.black),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)
+                            )
+                            
+                            
+                          )),
+                child: Text(_curEmoji),
+                          
+                
+              ),
+              DecimalNumberPicker(
+                minValue: 0,
+                haptics: true,
+                maxValue: 30,
+                itemWidth: 40,
+                value: toDisplay(_seconds),
+                integerZeroPad: true,
+                decimalPlaces: 2,
+                textStyle: const TextStyle(color: Colors.grey),
+                selectedTextStyle: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                ),
+                onChanged: (value) => setState(() {
+                  if (timerRun) {
+                    _restTime = toDisplay(_seconds);
+                  } else {
+                    if (value > 20) {
+                      value = 20;
+                      _restTime = 20;
+                      _seconds = 1200;
+                    } else {
+                      setState(() {
+                      _restTime = value;
+                      _seconds = toSeconds(_restTime);
+                      });
+                    }
+                  }
+                })
+              )                
+            ]
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget> [
               Container(
                 padding: const EdgeInsets.only(bottom: 15.5),
                 child: const Text('🏋️'),
@@ -120,54 +180,35 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget> [
+            children: [
+              
               TextButton(
+                child: const Text('✅'), 
                 onPressed: () {
-                  if (!buttonNull) {
-                    if (timerRun == false && _seconds > 0) {
-                      startTimer();
-                      buttonNull = true;
-                    } else {
-                      cancelTimer();
-                    }
-                  }
-                }, 
-                child: Text(_curEmoji),
-                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color.fromARGB(134, 33, 149, 243))),
+                      setState(() {
+                  Set newSet = Set(_curReps, _curWeight);
+                  Exercise lastEx = wkoutList[widget.wkoutIndex].exList.last;
+                  lastEx.setList.add(newSet);
+    }); 
+
+                }
               ),
-              DecimalNumberPicker(
+              NumberPicker(
                 minValue: 0,
+                maxValue: 125,
+                value: _curReps,
                 haptics: true,
-                maxValue: 30,
-                itemWidth: 40,
-                value: toDisplay(_seconds),
-                integerZeroPad: true,
-                decimalPlaces: 2,
                 textStyle: const TextStyle(color: Colors.grey),
                 selectedTextStyle: TextStyle(
                   color: Theme.of(context).brightness == Brightness.dark
                           ? Colors.white
                           : Colors.black,
                 ),
-                onChanged: (value) => setState(() {
-                  if (timerRun) {
-                    _restTime = toDisplay(_seconds);
-                  } else {
-                    if (value > 20) {
-                      value = 20;
-                      _restTime = 20;
-                      _seconds = 1200;
-                    } else {
-                      setState(() {
-                      _restTime = value;
-                      _seconds = toSeconds(_restTime);
-                      });
-                    }
-                  }
-                })
-              )                
-            ]
-          ), 
+                onChanged: (value) => setState(() => _curReps = value)
+              ),
+              
+            ],
+          )
         ]
       ),
     );

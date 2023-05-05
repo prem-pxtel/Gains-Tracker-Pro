@@ -19,9 +19,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     setState(() {
       // update exList with correct input eventually
       Exercise newEx = Exercise();
-      Set testSet = Set();
-      testSet.repCount = 10;
-      testSet.weight = 50;
+      Set testSet = Set(10, 50);
       newEx.setList.add(testSet);
       newEx.exName = textController.text;
       wkoutList[widget.wkoutIndex].exList.add(newEx);
@@ -139,7 +137,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               },
             ),
           ),
-          const NumberPickerScreen(),
+          NumberPickerScreen(wkoutIndex: widget.wkoutIndex,),
         ]
       )
     );

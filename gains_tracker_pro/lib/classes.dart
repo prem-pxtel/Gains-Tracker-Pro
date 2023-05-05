@@ -30,4 +30,8 @@ class Exercise {
 class Set {
   int repCount = 0;
   int weight = 0;
+  Set(int reps, int weight) {
+    repCount = reps;
+    weight = weight;
+  }
 }
