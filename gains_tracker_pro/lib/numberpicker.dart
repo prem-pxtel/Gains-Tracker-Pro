@@ -178,37 +178,25 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
               ),
             ]
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              
-              TextButton(
-                child: const Text('✅'), 
+          
+              Container(padding: EdgeInsets.only(top: 570, left: 30), 
+              child: MaterialButton(
+                color: Colors.black,
+                shape: CircleBorder(),
+                child: const Text('✓'), 
                 onPressed: () {
                       setState(() {
                   Set newSet = Set(_curReps, _curWeight);
                   Exercise lastEx = wkoutList[widget.wkoutIndex].exList.last;
                   lastEx.setList.add(newSet);
     }); 
+    
 
-                }
+                },
+
               ),
-              NumberPicker(
-                minValue: 0,
-                maxValue: 125,
-                value: _curReps,
-                haptics: true,
-                textStyle: const TextStyle(color: Colors.grey),
-                selectedTextStyle: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.black,
-                ),
-                onChanged: (value) => setState(() => _curReps = value)
               ),
               
-            ],
-          )
         ]
       ),
     );
