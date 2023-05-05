@@ -82,7 +82,6 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                 child: const Text('🏋️'),
               ),
               NumberPicker(
-                key: UniqueKey(),
                 minValue: 0,
                 maxValue: 1000,
                 value: _curWeight,
@@ -104,7 +103,6 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                 child: const Text('#️⃣'),
               ),
               NumberPicker(
-                key: UniqueKey(),
                 minValue: 0,
                 maxValue: 125,
                 value: _curReps,
