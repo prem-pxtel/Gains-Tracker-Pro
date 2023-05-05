@@ -70,7 +70,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.only(bottom: 20, left: 50),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget> [
@@ -135,6 +135,9 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
               )                
             ]
           ),
+          const Spacer(flex: 1),
+          Row(
+            children: <Widget> [
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget> [
@@ -146,6 +149,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                 minValue: 0,
                 maxValue: 1000,
                 haptics: true,
+                itemWidth: 40,
                 value: _curWeight,
                 textStyle: const TextStyle(color: Colors.grey),
                 selectedTextStyle: TextStyle(
@@ -169,6 +173,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                 maxValue: 125,
                 value: _curReps,
                 haptics: true,
+                itemWidth: 40,
                 textStyle: const TextStyle(color: Colors.grey),
                 selectedTextStyle: TextStyle(
                   color: Theme.of(context).brightness == Brightness.dark
@@ -179,7 +184,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
               ),
             ]
           ),
-          
+            ]),
               Container(padding: EdgeInsets.only(top: 570, left: 30), 
               child: MaterialButton(
                 color: Colors.black,
