@@ -149,7 +149,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                 minValue: 0,
                 maxValue: 1000,
                 haptics: true,
-                itemWidth: 40,
+                itemWidth: 45,
                 value: _curWeight,
                 textStyle: const TextStyle(color: Colors.grey),
                 selectedTextStyle: TextStyle(
@@ -173,7 +173,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                 maxValue: 125,
                 value: _curReps,
                 haptics: true,
-                itemWidth: 40,
+                itemWidth: 45,
                 textStyle: const TextStyle(color: Colors.grey),
                 selectedTextStyle: TextStyle(
                   color: Theme.of(context).brightness == Brightness.dark
