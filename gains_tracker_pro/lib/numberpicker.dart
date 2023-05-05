@@ -84,6 +84,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
               NumberPicker(
                 minValue: 0,
                 maxValue: 1000,
+                haptics: true,
                 value: _curWeight,
                 textStyle: const TextStyle(color: Colors.grey),
                 selectedTextStyle: TextStyle(
@@ -106,6 +107,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                 minValue: 0,
                 maxValue: 125,
                 value: _curReps,
+                haptics: true,
                 textStyle: const TextStyle(color: Colors.grey),
                 selectedTextStyle: TextStyle(
                   color: Theme.of(context).brightness == Brightness.dark
@@ -122,7 +124,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
               TextButton(
                 onPressed: () {
                   if (!buttonNull) {
-                    if (timerRun == false /*&& _seconds > 0*/) {
+                    if (timerRun == false && _seconds > 0) {
                       startTimer();
                       buttonNull = true;
                     } else {
@@ -131,10 +133,13 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                   }
                 }, 
                 child: Text(_curEmoji),
+                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color.fromARGB(134, 33, 149, 243))),
               ),
               DecimalNumberPicker(
                 minValue: 0,
+                haptics: true,
                 maxValue: 30,
+                itemWidth: 40,
                 value: toDisplay(_seconds),
                 integerZeroPad: true,
                 decimalPlaces: 2,
@@ -160,25 +165,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                     }
                   }
                 })
-              )
-/*
-                NumberPicker(
-                  key: UniqueKey(),
-                  minValue: 0,
-                  maxValue: 300,
-                  value: _currentValueRest,
-                  textStyle: TextStyle(color: Color.fromARGB(150, 20, 20, 20)),
-                  selectedTextStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                  onChanged: (value) => setState(() {
-                    if (timerRun) {
-                      _currentValueRest = seconds;
-                    } else {
-                      _currentValueRest = value;
-                      seconds = value;
-                    }
-                  })
-                ),
-*/                
+              )                
             ]
           ), 
         ]

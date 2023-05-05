@@ -126,18 +126,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                   }
                                 ),
                               ),
-                              /*Row(
-                                children: <Widget> [ 
-                                  (reps != 0) 
-                                  ? IconButton(
-                                    icon: const Icon(Icons.remove),
-                                    onPressed: () => setState(() => reps--),
-                                  ) : Container(),
-                                    Text(reps.toString()),
-                                    IconButton(icon: const Icon(Icons.add),onPressed: () => setState(() => reps++))
-                                ],
-                              ),
-                              */
                               onTap: () {
                                 // open separate Workout screen where you can then    add Exercises and get prompted to enter Exercise info
                               }
