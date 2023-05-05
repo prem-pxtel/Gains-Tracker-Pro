@@ -15,7 +15,7 @@ class ExerciseScreen extends StatefulWidget {
 
 class _ExerciseScreenState extends State<ExerciseScreen> {
   final textController = TextEditingController();
-  callback() {
+  addExCallback() {
     setState(() {
       // update exList with correct input eventually
       Exercise newEx = Exercise();
@@ -29,6 +29,14 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       //updating heatmap
       wkoutMap.putIfAbsent(DateUtils.dateOnly(wkoutList[wkoutList.length - 1].dt), () => getVol(wkoutList[wkoutList.length - 1].exList));
     });
+  }
+  addSetCallback(Set newSet) {
+                      setState(() {
+                  
+                  Exercise lastEx = wkoutList[widget.wkoutIndex].exList.last;
+                  lastEx.setList.add(newSet);
+    }); 
+
   }
 
   @override
@@ -45,7 +53,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
             showDialog(
               context: context,
               builder: (context) { // same as (context) => AddExerciseAlertD...
-                return AddExerciseAlertDialog(textController: textController,wkoutIndex: widget.wkoutIndex, callback: callback);
+                return AddExerciseAlertDialog(textController: textController,wkoutIndex: widget.wkoutIndex, callback: addExCallback);
               }
             );
           });
@@ -89,6 +97,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                           child: Container(
                             margin: const EdgeInsets.all(10.0),
                             child: ListTile(
+                              visualDensity: const VisualDensity(vertical: -4),
                               tileColor: Theme.of(context).brightness == Brightness.dark
                                 ? const Color.fromARGB(255, 46, 46, 46)
                                 : Colors.white,
@@ -102,13 +111,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                 ),
                                 borderRadius: BorderRadius.circular(20),
                               ),
-                              leading: Transform.translate(
-                                offset: const Offset(0, 5),
-                                child: CircleAvatar(
+                              leading:  CircleAvatar(
                                   radius: 6,
                                   backgroundColor: Colors.red.shade400,
                                 ),
-                              ),
+                              
                               trailing: CircleAvatar(
                                 backgroundColor: const Color.fromARGB(100, 46, 46, 46),
                                 radius: 18,
@@ -137,7 +144,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               },
             ),
           ),
-          NumberPickerScreen(wkoutIndex: widget.wkoutIndex,),
+          NumberPickerScreen(wkoutIndex: widget.wkoutIndex, callback: addSetCallback),
         ]
       )
     );

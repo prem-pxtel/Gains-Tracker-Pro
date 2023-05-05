@@ -6,7 +6,8 @@ import 'classes.dart';
 
 class NumberPickerScreen extends StatefulWidget {
   final int wkoutIndex;
-  const NumberPickerScreen({super.key, required this.wkoutIndex});
+  final Function callback;
+  const NumberPickerScreen({super.key, required this.wkoutIndex, required this.callback});
 
   @override
   State<NumberPickerScreen> createState() => _NumberPickerScreenState();
@@ -185,13 +186,8 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                 shape: CircleBorder(),
                 child: const Text('✓'), 
                 onPressed: () {
-                      setState(() {
                   Set newSet = Set(_curReps, _curWeight);
-                  Exercise lastEx = wkoutList[widget.wkoutIndex].exList.last;
-                  lastEx.setList.add(newSet);
-    }); 
-    
-
+                  widget.callback(newSet);
                 },
 
               ),
