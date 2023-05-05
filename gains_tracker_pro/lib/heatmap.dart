@@ -14,15 +14,15 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
 
-    var theValue = 0;
+    var maxValue = 0;
     wkoutMap.forEach(
-      (k,v) { if (v > theValue) theValue = v; }
+      (k,v) { if (v > maxValue) maxValue = v; }
     );
 
     Map<DateTime, int> wkoutMap10 = {
       for (var i = 0; i < wkoutMap.length; ++i) 
       wkoutMap.keys.elementAt(i)
-      : (wkoutMap.values.elementAt(i)/theValue).round()*10
+      : (wkoutMap.values.elementAt(i)/maxValue).round()*10
     };
 
     return HeatMap(

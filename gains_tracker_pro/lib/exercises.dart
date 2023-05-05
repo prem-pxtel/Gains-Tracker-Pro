@@ -21,7 +21,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       Exercise newEx = Exercise();
       Set testSet = Set(10, 50);
       newEx.setList.add(testSet);
-      newEx.exName = textController.text;
+      if (textController.text == '') {
+        newEx.exName = 'New Exercise';
+      } else {
+        newEx.exName = textController.text;
+      }
       wkoutList[widget.wkoutIndex].exList.add(newEx);
       textController.clear();
       Navigator.pop(context);
