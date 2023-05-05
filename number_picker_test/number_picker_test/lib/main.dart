@@ -32,7 +32,7 @@ class _TimerScreenState extends State<TimerScreen> {
           _restTime = toDisplay(_seconds);
           _curEmoji = '❌';
           buttonNull = false;
-        } else{
+        } else {
           setState(() {
             timerRun = false;
             buttonNull = false;
@@ -77,8 +77,8 @@ class _TimerScreenState extends State<TimerScreen> {
           });
         }),
         body: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget> [
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget> [
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget> [
@@ -90,11 +90,13 @@ class _TimerScreenState extends State<TimerScreen> {
                   value: _curWeight,
                   textStyle: const TextStyle(color: Color.fromARGB(150, 20, 20, 20)),
                   selectedTextStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)) ,
-                  onChanged: (value) => setState(() => _curWeight = value)),],
-                  ),
+                  onChanged: (value) => setState(() => _curWeight = value)
+                ),
+              ],
+            ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
+              children: <Widget> [
                 const Text('#️⃣'),
                 NumberPicker(
                   key: UniqueKey(),
@@ -103,34 +105,39 @@ class _TimerScreenState extends State<TimerScreen> {
                   value: _curReps,
                   textStyle: const TextStyle(color: Color.fromARGB(150, 20, 20, 20)),
                   selectedTextStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                  onChanged: (value) => setState(() => _curReps = value)),
-                  ]),
+                  onChanged: (value) => setState(() => _curReps = value)
+                ),
+              ]
+            ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
+              children: <Widget> [
                 TextButton(
                   onPressed: () {
-                  if (!buttonNull) {
-                    if (timerRun == false /*&& _seconds > 0*/) {
-                      startTimer();
-                      buttonNull = true;
-                    } else {
-                      cancelTimer();
+                    if (!buttonNull) {
+                      if (timerRun == false /*&& _seconds > 0*/) {
+                        startTimer();
+                        buttonNull = true;
+                      } else {
+                        cancelTimer();
+                      }
                     }
-                  }
-                }, child: Text(_curEmoji)),
-                DecimalNumberPicker(minValue: 0,
-                 maxValue: 30,
+                  }, 
+                  child: Text(_curEmoji)
+                ),
+                DecimalNumberPicker(
+                  minValue: 0,
+                  maxValue: 30,
                   value: toDisplay(_seconds),
                   integerZeroPad: true,
                   decimalPlaces: 2,
                   textStyle: const TextStyle(color: Color.fromARGB(150, 20, 20, 20)),
                   selectedTextStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                   onChanged: (value) => setState(() {
-                    if(timerRun){
+                    if (timerRun) {
                       _restTime = toDisplay(_seconds);
                     } else {
-                      if (value > 20){
+                      if (value > 20) {
                         value = 20;
                         _restTime = 20;
                         _seconds = 1200;
@@ -141,27 +148,28 @@ class _TimerScreenState extends State<TimerScreen> {
                         });
                       }
                     }
-                  }))
-
-/*           
-               NumberPicker(
-                key: UniqueKey(),
-                  minValue: 0,
-                 maxValue: 300,
-                  value: _currentValueRest,
-                  textStyle: TextStyle(color: Color.fromARGB(150, 20, 20, 20)),
-                  selectedTextStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                  onChanged: (value) => setState((){
-                    if(timerRun){
-                      _currentValueRest = seconds;
-                    }
-                    else{
-                      _currentValueRest = value;
-                      seconds = value;
-                     }})),
-*/
-                
-            ]), 
+                  })
+                )
+/*
+                  NumberPicker(
+                    key: UniqueKey(),
+                    minValue: 0,
+                    maxValue: 300,
+                    value: _currentValueRest,
+                    textStyle: TextStyle(color: Color.fromARGB(150, 20, 20, 20)),
+                    selectedTextStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                    onChanged: (value) => setState(() {
+                      if (timerRun) {
+                        _currentValueRest = seconds;
+                      } else {
+                        _currentValueRest = value;
+                        seconds = value;
+                      }
+                    })
+                  ),
+*/                
+              ]
+            ), 
           ]
         ),
       )     
