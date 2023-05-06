@@ -25,6 +25,7 @@ class AddExerciseAlertDialog extends StatelessWidget {
           const Text('Please enter your exrecise information'),   
           Padding(
             padding: const EdgeInsets.only(top: 55.0), child: TextField(
+              autofocus: true,
               controller: textController,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
