@@ -99,6 +99,7 @@ class HomePageState extends State<HomePage> {
         const OtherPage(),
       ][currentPageIndex],
       bottomNavigationBar: NavigationBar(
+        backgroundColor: Color.fromARGB(0, 1, 1, 1),
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;
@@ -108,16 +109,16 @@ class HomePageState extends State<HomePage> {
         destinations: const <Widget>[
           NavigationDestination(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: '',
           ),
           NavigationDestination(
             icon: Icon(Icons.calendar_month),
-            label: 'Calendar',
+            label: '',
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.bookmark),
             icon: Icon(Icons.bookmark_border),
-            label: 'Other',
+            label: '',
           ),
         ],
       ),
