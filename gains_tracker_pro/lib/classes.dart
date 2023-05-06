@@ -22,7 +22,7 @@ class Workout {
 }
 
 class Exercise {
-  String exName = 'New Exercise';
+  late String exName;
   String notes = '';
   List<Set> setList = [];
 }

@@ -19,10 +19,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     setState(() {
       // update exList with correct input eventually
       Exercise newEx = Exercise();
-      if (textController.text == '') {
-        newEx.exName = 'New Exercise';
-      } else {
+      if (textController.text != '') {
         newEx.exName = textController.text;
+      } else {
+        int exLenPlus1 = wkoutList[widget.wkoutIndex].exList.length + 1;
+        newEx.exName = 'Exercise $exLenPlus1';
       }
       wkoutList[widget.wkoutIndex].exList.add(newEx);
       textController.clear();
