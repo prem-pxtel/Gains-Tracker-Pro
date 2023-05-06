@@ -69,7 +69,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
    
   @override
   Widget build(BuildContext context) {
-    double screensize = MediaQuery.of(context).size.height;
+    double screensize = MediaQuery.of(context).size.height - 16;
     return Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(topLeft: Radius.circular(120), topRight: Radius.circular(120)),
@@ -77,8 +77,8 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                     ? (const Color.fromARGB(255, 44, 44, 44))
                     : (const Color.fromARGB(255, 227, 227, 227))
       ),
-      padding: const EdgeInsets.only(bottom: 15, left: 90, top:15),
-      margin: EdgeInsets.only(top: screensize.round()- 320),
+      padding: const EdgeInsets.only(bottom: 15, left: 90, top: 15),
+      margin: EdgeInsets.only(top: screensize.round() - 320),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget> [
@@ -155,7 +155,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                   children: <Widget> [
                     Container(
                       padding: const EdgeInsets.only(bottom: 13),
-                      child: const Icon(Icons.fitness_center)
+                      child: const Icon(Icons.fitness_center),
                     ),
                     NumberPicker(
                       minValue: 0,
@@ -178,7 +178,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                   children: <Widget> [
                     Container(
                       padding: const EdgeInsets.only(bottom: 13),
-                      child: const Icon(Icons.tag)
+                      child: const Icon(Icons.tag),
                     ),
                     NumberPicker(
                       minValue: 0,
