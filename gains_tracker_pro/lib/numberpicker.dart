@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'dart:async';
 import 'classes.dart';
+import 'package:flutter/services.dart';
 
 class NumberPickerScreen extends StatefulWidget {
   final int wkoutIndex;
@@ -33,9 +34,9 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
           buttonNull = false;
         } else {
           setState(() {
-            timerRun = false;
             buttonNull = false;
             _curEmoji = '⏰';
+            HapticFeedback.vibrate();
           });        
         }
       });
@@ -69,11 +70,14 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 20, left: 50),
+      padding: const EdgeInsets.only(bottom: 20, left: 60, top: 510),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget> [
-          Column(
+          Material(
+            color: const Color.fromARGB(81, 136, 162, 165),
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget> [
               TextButton(
@@ -88,13 +92,15 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                   }
                 }, 
                 style: ButtonStyle(backgroundColor: Theme.of(context).brightness == Brightness.dark
-                  ? const MaterialStatePropertyAll(Colors.white)
-                  : const MaterialStatePropertyAll(Colors.black),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)
-                    ) 
-                  )),
+                          ? const MaterialStatePropertyAll(Color.fromARGB(255, 47, 47, 47))
+                          : const MaterialStatePropertyAll(Color.fromARGB(255, 245, 245, 245)),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)
+                            )
+                            
+                            
+                          )),
                 child: Text(_curEmoji),
               ),
               DecimalNumberPicker(
@@ -103,7 +109,6 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                 maxValue: 30,
                 itemWidth: 40,
                 value: toDisplay(_seconds),
-                integerZeroPad: true,
                 decimalPlaces: 2,
                 textStyle: const TextStyle(color: Colors.grey),
                 selectedTextStyle: TextStyle(
@@ -119,6 +124,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                       value = 20;
                       _restTime = 20;
                       _seconds = 1200;
+                      HapticFeedback.selectionClick();
                     } else {
                       setState(() {
                       _restTime = value;
@@ -130,78 +136,85 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
               )                
             ]
           ),
+          ),
           const Spacer(flex: 1),
-          Row(
+
+          Material(
+            color: const Color.fromARGB(81, 136, 162, 165),
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+          child: Row(
             children: <Widget> [
               Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget> [
-                  Container(
-                    padding: const EdgeInsets.only(bottom: 13),
-                    child: const Icon(Icons.fitness_center)
-                  ),
-                  NumberPicker(
-                    minValue: 0,
-                    maxValue: 1000,
-                    haptics: true,
-                    itemWidth: 45,
-                    value: _curWeight,
-                    textStyle: const TextStyle(color: Colors.grey),
-                    selectedTextStyle: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.black,
-                    ),
-                    onChanged: (value) => setState(() => _curWeight = value)
-                  ),
-                ],
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget> [
+              Container(
+                padding: const EdgeInsets.only(bottom: 13),
+                child: const Icon(Icons.fitness_center)
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget> [
-                  Container(
-                    padding: const EdgeInsets.only(bottom: 13),
-                    child: const Icon(Icons.tag)
-                  ),
-                  NumberPicker(
-                    minValue: 0,
-                    maxValue: 125,
-                    value: _curReps,
-                    haptics: true,
-                    itemWidth: 45,
-                    textStyle: const TextStyle(color: Colors.grey),
-                    selectedTextStyle: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.black,
-                    ),
-                    onChanged: (value) => setState(() => _curReps = value)
-                  ),
-                ]
+              NumberPicker(
+                minValue: 0,
+                maxValue: 1000,
+                haptics: true,
+                itemWidth: 45,
+                value: _curWeight,
+                textStyle: const TextStyle(color: Colors.grey),
+                selectedTextStyle: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                ),
+                onChanged: (value) => setState(() { _curWeight = value; HapticFeedback.selectionClick();})
+              ),
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget> [
+              Container(
+                padding: const EdgeInsets.only(bottom: 13),
+                child: const Icon(Icons.tag)
+              ),
+              NumberPicker(
+                minValue: 0,
+                maxValue: 125,
+                value: _curReps,
+                haptics: true,
+                itemWidth: 45,
+                textStyle: const TextStyle(color: Colors.grey),
+                selectedTextStyle: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                ),
+                onChanged: (value) => setState(() => {_curReps = value, HapticFeedback.selectionClick()})
               ),
             ]
           ),
-          Container(
-            padding: const EdgeInsets.only(top: 580, left: 30), 
-            child: MaterialButton(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white
-                  : Colors.black,
-              shape: const CircleBorder(),
-              child: Icon(
-                Icons.check,
-                color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.black
-                  : Colors.white,
-              ),
-              onPressed: () {
-                Set newSet = Set(_curReps, _curWeight);
-                widget.callback(newSet);
-              },
-            ),
+            ]),
           ),
-        ]
-      ),
-    );
+              Container(padding: const EdgeInsets.only(left: 30), 
+              child: MaterialButton(
+                color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                shape: const CircleBorder(),
+                textColor: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.black
+                          : Colors.white,
+                child: Icon(Icons.check, color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.black
+                          : Colors.white),
+                
+                onPressed: () {
+                  Set newSet = Set(_curReps, _curWeight);
+                  widget.callback(newSet);
+                },
+
+              ),
+            ),
+        ],
+          ),
+        
+      );
   }
 }
