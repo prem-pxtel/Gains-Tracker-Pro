@@ -44,6 +44,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(bottomRight: Radius.circular(40)),),
         backgroundColor: Colors.black,
         title: const Text('Your Workout'),
       ),

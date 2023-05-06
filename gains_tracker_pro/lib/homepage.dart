@@ -20,8 +20,11 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(
+        shape: const RoundedRectangleBorder(
+          borderRadius: 
+          BorderRadius.only(bottomLeft: Radius.circular(40)),),
         backgroundColor: Colors.black,
-        title: const Text('GAINS TRACKER PRO 💪'),
+        title: const Text('   GAINS TRACKER 💪'),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
