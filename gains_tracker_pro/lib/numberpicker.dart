@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gains_tracker_pro/homepage.dart';
+import 'package:gains_tracker_pro/randfuncs.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'dart:async';
 import 'classes.dart';
+import 'package:flutter/services.dart';
 
 class NumberPickerScreen extends StatefulWidget {
   final int wkoutIndex;
@@ -34,9 +36,9 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
           buttonNull = false;
         } else {
           setState(() {
-            timerRun = false;
             buttonNull = false;
             _curEmoji = '⏰';
+            HapticFeedback.vibrate();
           });        
         }
       });
@@ -70,11 +72,14 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 20, left: 50),
+      padding: const EdgeInsets.only(bottom: 20, left: 60, top: 510),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget> [
-          Column(
+          Material(
+            color: const Color.fromARGB(81, 136, 162, 165),
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget> [
               TextButton(
@@ -89,8 +94,8 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                   }
                 }, 
                 style: ButtonStyle(backgroundColor: Theme.of(context).brightness == Brightness.dark
-                          ? const MaterialStatePropertyAll(Colors.white)
-                          : const MaterialStatePropertyAll(Colors.black),
+                          ? const MaterialStatePropertyAll(Color.fromARGB(255, 47, 47, 47))
+                          : const MaterialStatePropertyAll(Color.fromARGB(255, 245, 245, 245)),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30)
@@ -108,7 +113,6 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                 maxValue: 30,
                 itemWidth: 40,
                 value: toDisplay(_seconds),
-                integerZeroPad: true,
                 decimalPlaces: 2,
                 textStyle: const TextStyle(color: Colors.grey),
                 selectedTextStyle: TextStyle(
@@ -124,6 +128,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                       value = 20;
                       _restTime = 20;
                       _seconds = 1200;
+                      HapticFeedback.selectionClick();
                     } else {
                       setState(() {
                       _restTime = value;
@@ -135,10 +140,15 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
               )                
             ]
           ),
+          ),
           const Spacer(flex: 1),
-          Row(
+
+          Material(
+            color: const Color.fromARGB(81, 136, 162, 165),
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+          child: Row(
             children: <Widget> [
-          Column(
+              Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget> [
               Container(
@@ -157,7 +167,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                           ? Colors.white
                           : Colors.black,
                 ),
-                onChanged: (value) => setState(() => _curWeight = value)
+                onChanged: (value) => setState(() { _curWeight = value; HapticFeedback.selectionClick();})
               ),
             ],
           ),
@@ -180,16 +190,21 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                           ? Colors.white
                           : Colors.black,
                 ),
-                onChanged: (value) => setState(() => _curReps = value)
+                onChanged: (value) => setState(() => {_curReps = value, HapticFeedback.selectionClick()})
               ),
             ]
           ),
             ]),
-              Container(padding: EdgeInsets.only(top: 570, left: 30), 
+          ),
+              Container(padding: const EdgeInsets.only(left: 30), 
               child: MaterialButton(
                 color: Colors.black,
-                shape: CircleBorder(),
-                child: const Text('✓'), 
+                shape: const CircleBorder(),
+                textColor: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.black
+                          : Colors.white,
+                child: const Text('✓'),
+                
                 onPressed: () {
                   Set newSet = Set(_curReps, _curWeight);
                   widget.callback(newSet);

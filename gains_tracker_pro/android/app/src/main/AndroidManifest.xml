@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gains_tracker_pro">
+    <uses-permission android:name="android.permission.VIBRATE" />
    <application
         android:label="gains_tracker_pro"
         android:name="${applicationName}"
