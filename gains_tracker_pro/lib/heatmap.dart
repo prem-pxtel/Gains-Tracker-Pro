@@ -17,20 +17,20 @@ class _CalendarPageState extends State<CalendarPage> {
     var themaxValue = 0;
     wkoutMap.forEach(
       (k,v) { 
-        if(v == 0){
-          themaxValue = 1;
-        } 
-        else{
-          if (v > themaxValue) {themaxValue = v; 
-          print(v);}
-          } 
+        if (v == 0) { themaxValue = 1; }
+        else {
+          if (v > themaxValue) {
+            themaxValue = v; 
+            print(v);
           }
+        } 
+      }
     );
 
     Map<DateTime, int> wkoutMap10 = {
       for (var i = 0; i < wkoutMap.length; ++i) 
       wkoutMap.keys.elementAt(i)
-      : (wkoutMap.values.elementAt(i)/themaxValue).round()*10
+      : (wkoutMap.values.elementAt(i) / themaxValue).round() * 10
     };
 
     return HeatMap(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gains_tracker_pro/homepage.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'dart:async';
 import 'classes.dart';
@@ -89,18 +88,14 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                   }
                 }, 
                 style: ButtonStyle(backgroundColor: Theme.of(context).brightness == Brightness.dark
-                          ? const MaterialStatePropertyAll(Colors.white)
-                          : const MaterialStatePropertyAll(Colors.black),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30)
-                            )
-                            
-                            
-                          )),
+                  ? const MaterialStatePropertyAll(Colors.white)
+                  : const MaterialStatePropertyAll(Colors.black),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)
+                    ) 
+                  )),
                 child: Text(_curEmoji),
-                          
-                
               ),
               DecimalNumberPicker(
                 minValue: 0,
@@ -138,66 +133,73 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
           const Spacer(flex: 1),
           Row(
             children: <Widget> [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget> [
-              Container(
-                padding: const EdgeInsets.only(bottom: 15.5),
-                child: const Text('🏋️'),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget> [
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 13),
+                    child: const Icon(Icons.fitness_center)
+                  ),
+                  NumberPicker(
+                    minValue: 0,
+                    maxValue: 1000,
+                    haptics: true,
+                    itemWidth: 45,
+                    value: _curWeight,
+                    textStyle: const TextStyle(color: Colors.grey),
+                    selectedTextStyle: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
+                    ),
+                    onChanged: (value) => setState(() => _curWeight = value)
+                  ),
+                ],
               ),
-              NumberPicker(
-                minValue: 0,
-                maxValue: 1000,
-                haptics: true,
-                itemWidth: 45,
-                value: _curWeight,
-                textStyle: const TextStyle(color: Colors.grey),
-                selectedTextStyle: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.black,
-                ),
-                onChanged: (value) => setState(() => _curWeight = value)
-              ),
-            ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget> [
-              Container(
-                padding: const EdgeInsets.only(bottom: 15.5),
-                child: const Text('#️⃣'),
-              ),
-              NumberPicker(
-                minValue: 0,
-                maxValue: 125,
-                value: _curReps,
-                haptics: true,
-                itemWidth: 45,
-                textStyle: const TextStyle(color: Colors.grey),
-                selectedTextStyle: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.black,
-                ),
-                onChanged: (value) => setState(() => _curReps = value)
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget> [
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 13),
+                    child: const Icon(Icons.tag)
+                  ),
+                  NumberPicker(
+                    minValue: 0,
+                    maxValue: 125,
+                    value: _curReps,
+                    haptics: true,
+                    itemWidth: 45,
+                    textStyle: const TextStyle(color: Colors.grey),
+                    selectedTextStyle: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
+                    ),
+                    onChanged: (value) => setState(() => _curReps = value)
+                  ),
+                ]
               ),
             ]
           ),
-            ]),
-              Container(padding: EdgeInsets.only(top: 570, left: 30), 
-              child: MaterialButton(
-                color: Colors.black,
-                shape: CircleBorder(),
-                child: const Text('✓'), 
-                onPressed: () {
-                  Set newSet = Set(_curReps, _curWeight);
-                  widget.callback(newSet);
-                },
-
+          Container(
+            padding: const EdgeInsets.only(top: 580, left: 30), 
+            child: MaterialButton(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+              shape: const CircleBorder(),
+              child: Icon(
+                Icons.check,
+                color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.black
+                  : Colors.white,
               ),
-              ),
-              
+              onPressed: () {
+                Set newSet = Set(_curReps, _curWeight);
+                widget.callback(newSet);
+              },
+            ),
+          ),
         ]
       ),
     );

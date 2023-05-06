@@ -7,7 +7,10 @@ class OtherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: Stack(children: [
+        const Center(child: Text('© 2023 Gains Corp.\n\n\n')),
+        const Center(child: Text('San B. & Prem P.')),
+        Container(
         alignment: Alignment.center,
         child: ListView.builder(
           itemBuilder: (_, index) {
@@ -19,6 +22,8 @@ class OtherPage extends StatelessWidget {
           },
         ),
       ),
+      ]
+      )
     );
   }
 }

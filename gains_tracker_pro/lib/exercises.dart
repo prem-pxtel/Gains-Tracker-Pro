@@ -19,8 +19,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     setState(() {
       // update exList with correct input eventually
       Exercise newEx = Exercise();
-      Set testSet = Set(10, 50);
-      newEx.setList.add(testSet);
       if (textController.text == '') {
         newEx.exName = 'New Exercise';
       } else {
@@ -35,10 +33,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     });
   }
   addSetCallback(Set newSet) {
-                      setState(() {
-                  
-                  Exercise lastEx = wkoutList[widget.wkoutIndex].exList.last;
-                  lastEx.setList.add(newSet);
+    setState(() {            
+      Exercise lastEx = wkoutList[widget.wkoutIndex].exList.last;
+      lastEx.setList.add(newSet);
     }); 
 
   }
@@ -51,7 +48,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
         title: const Text('Your Workout'),
       ),
       floatingActionButton: FloatingActionButton(
-        child:const Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           setState(() {
             showDialog(
@@ -66,7 +63,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       body: Stack(
         children: [
           if (wkoutList[widget.wkoutIndex].exList.isEmpty) 
-          const Center(child: Text('Add your first exercise, by tapping +')),
+          const Center(child: Text('Add your first exercise by tapping +')),
           SizedBox(
             height: 500,
             child: ListView.builder(
@@ -119,7 +116,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                   radius: 6,
                                   backgroundColor: Colors.red.shade400,
                                 ),
-                              
                               trailing: CircleAvatar(
                                 backgroundColor: const Color.fromARGB(100, 46, 46, 46),
                                 radius: 18,
@@ -136,7 +132,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                 ),
                               ),
                               onTap: () {
-                                // open separate Workout screen where you can then    add Exercises and get prompted to enter Exercise info
+                                // ...
                               }
                             ),
                           ),

@@ -24,7 +24,7 @@ class HomePageState extends State<HomePage> {
         title: const Text('GAINS TRACKER PRO 💪'),
       ),
       floatingActionButton: FloatingActionButton(
-        child:const Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           setState(() {
             Workout newWkout = Workout();
