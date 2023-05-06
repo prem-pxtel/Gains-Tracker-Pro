@@ -67,7 +67,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
           if (wkoutList[widget.wkoutIndex].exList.isEmpty) 
           const Center(child: Text('Add your first exercise by tapping +')),
           SizedBox(
-            height: 500,
+            height: 600,
             child: ListView.builder(
               itemCount: wkoutList[widget.wkoutIndex].exList.length,
               itemBuilder: (_, exIndex) {

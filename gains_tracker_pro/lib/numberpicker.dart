@@ -71,9 +71,11 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
   Widget build(BuildContext context) {
     double screensize = MediaQuery.of(context).size.height;
     return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(90)),
-        color: Color.fromARGB(20, 119, 119, 119)
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(70), topRight: Radius.circular(70)),
+        color: Theme.of(context).brightness == Brightness.dark
+                    ? (Color.fromARGB(255, 44, 44, 44))
+                    : (Color.fromARGB(255, 227, 227, 227))
       ),
       padding: const EdgeInsets.only(bottom: 15, left: 60, top:15),
       margin: EdgeInsets.only(top: screensize.round()- 320),
