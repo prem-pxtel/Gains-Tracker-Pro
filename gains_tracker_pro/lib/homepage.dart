@@ -99,7 +99,6 @@ class HomePageState extends State<HomePage> {
         const OtherPage(),
       ][currentPageIndex],
       bottomNavigationBar: NavigationBar(
-        height: 30,
         backgroundColor: const Color.fromARGB(0, 1, 1, 1),
         onDestinationSelected: (int index) {
           setState(() {
