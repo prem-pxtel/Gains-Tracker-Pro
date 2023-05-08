@@ -14,7 +14,7 @@ int getVol(List<Exercise> exList) {
   return totalVol;
 }
 
-// no need to use:
+/*
 void updateMap(DateTime key) {
   int volume = 0;
   for (int i = 0; i < wkoutList.length; ++i) {
@@ -23,4 +23,9 @@ void updateMap(DateTime key) {
     }
   }
   wkoutMap[key] = volume;
+}
+*/
+
+void updateMap() {
+  wkoutMap.putIfAbsent(wkoutList.last.dt, () => getVol(wkoutList.last.exList));
 }

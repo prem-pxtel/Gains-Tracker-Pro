@@ -28,15 +28,13 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       wkoutList[widget.wkoutIndex].exList.add(newEx);
       textController.clear();
       Navigator.pop(context);
-
-      //updating heatmap
-      wkoutMap.putIfAbsent(DateUtils.dateOnly(wkoutList[wkoutList.length - 1].dt), () => getVol(wkoutList[wkoutList.length - 1].exList));
     });
   }
   addSetCallback(Set newSet) {
     setState(() {            
       Exercise lastEx = wkoutList[widget.wkoutIndex].exList.last;
       lastEx.setList.add(newSet);
+      updateMap();
     }); 
 
   }
