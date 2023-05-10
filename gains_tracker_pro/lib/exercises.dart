@@ -35,6 +35,21 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       Exercise lastEx = wkoutList[widget.wkoutIndex].exList.last;
       lastEx.setList.add(newSet);
       updateMap();
+    });
+  } 
+    updateSetCallback(int exIndex, int setIndex, int reps, int weight) {
+    setState(() {    
+         
+      Set s = wkoutList[widget.wkoutIndex].exList[exIndex].setList[setIndex];
+      s.repCount = reps;
+      s.weight = weight;
+      
+      updateMap();
+    });
+  } 
+setStateCallback() {
+    setState(() {            
+      
     }); 
 
   }
@@ -143,7 +158,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                       setState(() {
                                         showDialog(
                                           context: context,
-                                          builder: (context) => const UpdateRepsAlertDialog(),
+                                          builder: (context) => UpdateRepsAlertDialog(setStateCallback: setStateCallback, updateSetCallback: updateSetCallback, exIndex: exIndex, setIndex: setIndex,),
                                         );
                                       });
                                     }

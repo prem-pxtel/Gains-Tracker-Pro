@@ -3,6 +3,7 @@ import 'package:numberpicker/numberpicker.dart';
 import 'dart:async';
 import 'classes.dart';
 import 'package:flutter/services.dart';
+import 'homepage.dart';
 
 class NumberPickerScreen extends StatefulWidget {
   final int wkoutIndex;
@@ -14,8 +15,7 @@ class NumberPickerScreen extends StatefulWidget {
 }
 
 class _NumberPickerScreenState extends State<NumberPickerScreen> {
-  int _curWeight = 10;
-  int _curReps = 20;
+ 
   String _curEmoji = '⏰';
   int _seconds = 60;
   double _restTime = 0;
@@ -25,21 +25,23 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
 
   void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
-      setState(() {
-        if (_seconds > 0) {
-          timerRun = true;
-          _seconds--;
-          _restTime = toDisplay(_seconds);
-          _curEmoji = '❌';
-          buttonNull = false;
-        } else {
-          setState(() {
+      if (mounted) {
+        setState(() {
+          if (_seconds > 0) {
+            timerRun = true;
+            _seconds--;
+            _restTime = toDisplay(_seconds);
+            _curEmoji = '❌';
             buttonNull = false;
-            _curEmoji = '⏰';
-            HapticFeedback.vibrate();
-          });        
-        }
-      });
+          } else {
+            setState(() {
+              buttonNull = false;
+              _curEmoji = '⏰';
+              HapticFeedback.vibrate();
+            });        
+          }
+        });
+      }
     });
   }
 
@@ -133,10 +135,8 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                         _seconds = 1200;
                         HapticFeedback.selectionClick();
                       } else {
-                        setState(() {
-                          _restTime = value;
-                          _seconds = toSeconds(_restTime);
-                        });
+                        _restTime = value;
+                        _seconds = toSeconds(_restTime);
                       }
                     }
                   })
@@ -162,14 +162,14 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                       maxValue: 1000,
                       haptics: true,
                       itemWidth: 45,
-                      value: _curWeight,
+                      value: curWeight,
                       textStyle: const TextStyle(color: Colors.grey),
                       selectedTextStyle: TextStyle(
                         color: Theme.of(context).brightness == Brightness.dark
                           ? Colors.white
                           : Colors.black,
                       ),
-                      onChanged: (value) => setState(() { _curWeight = value; HapticFeedback.selectionClick();})
+                      onChanged: (value) => setState(() { curWeight = value; HapticFeedback.selectionClick();})
                     ),
                   ],
                 ),
@@ -183,7 +183,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                     NumberPicker(
                       minValue: 0,
                       maxValue: 125,
-                      value: _curReps,
+                      value: curReps,
                       haptics: true,
                       itemWidth: 45,
                       textStyle: const TextStyle(color: Colors.grey),
@@ -192,7 +192,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                           ? Colors.white
                           : Colors.black,
                       ),
-                      onChanged: (value) => setState(() => {_curReps = value, HapticFeedback.selectionClick()})
+                      onChanged: (value) => setState(() => {curReps = value, HapticFeedback.selectionClick()})
                     ),
                   ]
                 ),
@@ -212,7 +212,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                 ? Colors.black
                 : Colors.white),
               onPressed: () {
-                Set newSet = Set(_curReps, _curWeight);
+                Set newSet = Set(curReps, curWeight);
                 widget.callback(newSet);
               },
             ),
