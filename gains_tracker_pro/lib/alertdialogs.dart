@@ -44,8 +44,11 @@ class AddExerciseAlertDialog extends StatelessWidget {
           ),
         ]),
       actions: [
-        TextButton(
+        MaterialButton(
           onPressed: () { Navigator.pop(context); }, 
+          shape: RoundedRectangleBorder(
+		        borderRadius: BorderRadius.circular(20),
+	        ),
           child: const Text('Cancel')
         ),
         MaterialButton(
@@ -93,8 +96,7 @@ class _UpdateRepsAlertDialogState extends State<UpdateRepsAlertDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('Update Set'),
-      content: 
-Row(
+      content: Row(
               children: <Widget> [
                 SizedBox(
                   width: 90,
@@ -168,8 +170,11 @@ Row(
 		    borderRadius: BorderRadius.circular(20),
 	    ),
       actions: [
-        TextButton(
+        MaterialButton(
           onPressed: () { widget.setStateCallback(); Navigator.pop(context); }, 
+          shape: RoundedRectangleBorder(
+		        borderRadius: BorderRadius.circular(20),
+	        ),
           child: const Text('Cancel')
         ),
         MaterialButton(
