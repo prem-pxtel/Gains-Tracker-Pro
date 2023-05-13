@@ -10,11 +10,13 @@ import 'homepage.dart';
 
 class AddExerciseAlertDialog extends StatelessWidget {
   final TextEditingController textController;
+  final TextEditingController textController2;
   final int wkoutIndex;
   final Function callback;
   const AddExerciseAlertDialog({
     super.key,
     required this.textController,
+    required this.textController2,
     required this.wkoutIndex,
     required this.callback,
   });
@@ -25,9 +27,10 @@ class AddExerciseAlertDialog extends StatelessWidget {
       title: const Text('New Exercise'),
       content: Stack(
         children: [
-          const Text('Please enter your exrecise information'),   
+          const Text('Please enter your exercise information'),
+          const Padding(padding: EdgeInsets.only(top: 75), child: Icon(Icons.fitness_center)),
           Padding(
-            padding: const EdgeInsets.only(top: 55.0), child: TextField(
+            padding: const EdgeInsets.only(top: 55.0, left: 35, right: 5), child: TextField(
               autofocus: true,
               controller: textController,
               decoration: InputDecoration(
@@ -37,6 +40,23 @@ class AddExerciseAlertDialog extends StatelessWidget {
                   icon: const Icon(Icons.clear),
                   onPressed: () {
                     textController.clear();
+                  }  
+                )
+              ),
+            ),
+          ),
+          const Padding(padding: EdgeInsets.only(top: 145), child: Icon(Icons.notes_outlined)),
+          Padding(
+            padding: const EdgeInsets.only(top: 125.0, left: 35, right: 5), child: TextField(
+              autofocus: true,
+              controller: textController2,
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                hintText: 'Any thoughts?',
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.clear),
+                  onPressed: () {
+                    textController2.clear();
                   }  
                 )
               ),
@@ -110,7 +130,7 @@ class _UpdateRepsAlertDialogState extends State<UpdateRepsAlertDialog> {
                       child: const Icon(Icons.fitness_center),
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 30),
+                      padding: const EdgeInsets.only(left: 30),
                       child:
                     NumberPicker(
                       minValue: 0,
@@ -140,7 +160,7 @@ class _UpdateRepsAlertDialogState extends State<UpdateRepsAlertDialog> {
                       padding: const EdgeInsets.only(bottom: 13, left: 30, top: 10),
                       child: const Icon(Icons.tag),
                     ),
-                    Container(padding: EdgeInsets.only(left: 30), child:
+                    Container(padding: const EdgeInsets.only(left: 30), child:
                     NumberPicker(
                       minValue: 0,
                       maxValue: 125,
@@ -189,6 +209,69 @@ class _UpdateRepsAlertDialogState extends State<UpdateRepsAlertDialog> {
           child: const Text('Save'),
         ),
       ],
+    );
+  }
+}
+
+class UpdateNoteDialogBox extends StatelessWidget {
+  final Function callback;
+  final int exIndex;
+  const UpdateNoteDialogBox({
+    super.key,
+    required this.callback,
+    required this.exIndex,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final textController = TextEditingController();
+    return AlertDialog(
+      title: const Text('Your Notes'),
+      content: Stack(
+        children: [
+          const Text('Please update your exercise notes'),
+          const Padding(padding: EdgeInsets.only(top: 75), child: Icon(Icons.notes_outlined)),
+          Padding(
+            padding: const EdgeInsets.only(top: 55.0, left: 35, right: 5), child: TextField(
+              autofocus: true,
+              controller: textController,
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                hintText: 'Any thoughts?',
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.clear),
+                  onPressed: () {
+                    textController.clear();
+                  }  
+                )
+              ),
+            ),
+          ),
+      ],
+    ),
+      actions: [
+        MaterialButton(
+          onPressed: () { Navigator.pop(context); }, 
+          shape: RoundedRectangleBorder(
+		        borderRadius: BorderRadius.circular(20),
+	        ),
+          child: const Text('Cancel')
+        ),
+        MaterialButton(
+          color: Colors.blue,
+          onPressed: () {
+            callback(textController.text, exIndex);
+            Navigator.pop(context); 
+          }, 
+          shape: RoundedRectangleBorder(
+		        borderRadius: BorderRadius.circular(20),
+	        ),
+          child: const Text('Save')
+        ),
+      ],
+      shape: RoundedRectangleBorder(
+		    borderRadius: BorderRadius.circular(20),
+	    ),
     );
   }
 }

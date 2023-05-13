@@ -6,8 +6,8 @@ import 'other.dart';
 
 List<Workout> wkoutList = [];
 Map<DateTime, int> wkoutMap = {};
-int curWeight = 10;
-int curReps = 20;
+int curWeight = 30;
+int curReps = 8;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

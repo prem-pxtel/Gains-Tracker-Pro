@@ -162,6 +162,7 @@ class _NumberPickerScreenState extends State<NumberPickerScreen> {
                       maxValue: 1000,
                       haptics: true,
                       itemWidth: 45,
+                      step: 5,
                       value: curWeight,
                       textStyle: const TextStyle(color: Colors.grey),
                       selectedTextStyle: TextStyle(

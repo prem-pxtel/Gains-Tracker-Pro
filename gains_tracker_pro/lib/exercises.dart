@@ -15,6 +15,7 @@ class ExerciseScreen extends StatefulWidget {
 
 class _ExerciseScreenState extends State<ExerciseScreen> {
   final textController = TextEditingController();
+  final textController2 = TextEditingController();
   addExCallback() {
     setState(() {
       // update exList with correct input eventually
@@ -25,6 +26,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
         int exLenPlus1 = wkoutList[widget.wkoutIndex].exList.length + 1;
         newEx.exName = 'Exercise $exLenPlus1';
       }
+      newEx.notes = textController2.text;
       wkoutList[widget.wkoutIndex].exList.add(newEx);
       textController.clear();
       Navigator.pop(context);
@@ -37,6 +39,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       updateMap();
     });
   } 
+  
     updateSetCallback(int exIndex, int setIndex, int reps, int weight) {
     setState(() {    
          
@@ -47,11 +50,18 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       updateMap();
     });
   } 
-setStateCallback() {
+  
+  setStateCallback() {
     setState(() {            
       
     }); 
 
+  }
+
+  updateNoteCallback(String newNote, int exIndex) {
+    setState(() {
+    wkoutList[widget.wkoutIndex].exList[exIndex].notes = newNote;
+    });
   }
 
   @override
@@ -70,7 +80,7 @@ setStateCallback() {
             showDialog(
               context: context,
               builder: (context) { // same as (context) => AddExerciseAlertD...
-                return AddExerciseAlertDialog(textController: textController,wkoutIndex: widget.wkoutIndex, callback: addExCallback);
+                return AddExerciseAlertDialog(textController: textController, textController2: textController2 ,wkoutIndex: widget.wkoutIndex, callback: addExCallback);
               }
             );
           });
@@ -85,6 +95,7 @@ setStateCallback() {
             child: ListView.builder(
               itemCount: wkoutList[widget.wkoutIndex].exList.length,
               itemBuilder: (_, exIndex) {
+                String notes = wkoutList[widget.wkoutIndex].exList[exIndex].notes;
                 return Dismissible(
                   key: UniqueKey(),
                   background: Container(
@@ -102,7 +113,7 @@ setStateCallback() {
                     // Then show a snackbar.
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Exercise removed')));
                   },
-                  child: ExpansionTile( 
+                  child: Theme(data: Theme.of(context).copyWith(dividerColor: Colors.transparent), child: ExpansionTile( 
                     title: Text(wkoutList[widget.wkoutIndex].exList[exIndex].exName),
                     children: <Widget> [
                       ListView.builder(
@@ -111,6 +122,8 @@ setStateCallback() {
                         itemBuilder: (_, setIndex) {
                           int setIndexPlus1 = setIndex + 1;
                           int reps = wkoutList[widget.wkoutIndex].exList[exIndex].setList[setIndex].repCount;
+                          int weight = wkoutList[widget.wkoutIndex].exList[exIndex].setList[setIndex].weight;
+
                           return Dismissible(
                             key: UniqueKey(),
                             background: Container(
@@ -135,7 +148,7 @@ setStateCallback() {
                                 tileColor: Theme.of(context).brightness == Brightness.dark
                                   ? const Color.fromARGB(255, 46, 46, 46)
                                   : Colors.white,
-                                title: Text('Set $setIndexPlus1'),                
+                                title: Text('Set $setIndexPlus1: [$reps, $weight]'),                
                                 shape: RoundedRectangleBorder(
                                   side: BorderSide(
                                     width: 7,
@@ -145,7 +158,7 @@ setStateCallback() {
                                   ),
                                   borderRadius: BorderRadius.circular(20),
                                 ),
-                                leading:  CircleAvatar(
+                                leading: CircleAvatar(
                                     radius: 6,
                                     backgroundColor: Colors.red.shade400,
                                   ),
@@ -153,7 +166,7 @@ setStateCallback() {
                                   backgroundColor: const Color.fromARGB(100, 46, 46, 46),
                                   radius: 18,
                                   child: IconButton(
-                                    icon: Text('$reps'), 
+                                    icon: const Icon(Icons.edit_note), 
                                     onPressed: () {
                                       setState(() {
                                         showDialog(
@@ -172,7 +185,50 @@ setStateCallback() {
                           );
                         }
                       ),
+                      
+                      if (notes != '')  Container(
+                              margin: const EdgeInsets.all(10.0), child: ListTile(
+                                visualDensity: const VisualDensity(vertical: -4),
+                                tileColor: Theme.of(context).brightness == Brightness.dark
+                                  ? const Color.fromARGB(255, 46, 46, 46)
+                                  : Colors.white,
+                                title: Text('Notes: $notes'),                
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                    width: 7,
+                                    color: Theme.of(context).brightness == Brightness.dark
+                                      ? const Color.fromARGB(255, 46, 46, 46)
+                                      : Colors.white,
+                                  ),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                leading: const CircleAvatar(
+                                    radius: 6,
+                                    backgroundColor: Colors.orange,
+                                  ),
+                                trailing: CircleAvatar(
+                                  backgroundColor: const Color.fromARGB(100, 46, 46, 46),
+                                  radius: 18,
+                                  child: IconButton(
+                                    icon: const Icon(Icons.edit_note), 
+                                    onPressed: () {
+                                      setState(() {
+                                        
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => UpdateNoteDialogBox(callback: updateNoteCallback, exIndex: exIndex),
+                                        );
+                                        
+                                      });
+                                    }
+                                  ),
+                                ),
+                                onTap: () {
+                                  // ...
+                                })
+                      ),
                     ]
+                  ),
                   ),
                 );
               },
