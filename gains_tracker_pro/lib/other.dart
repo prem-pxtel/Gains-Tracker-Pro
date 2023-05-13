@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'randfuncs.dart';
 // import 'api.dart';
+// https://blog.codemagic.io/rest-api-in-flutter/
 
 class OtherPage extends StatelessWidget {
   const OtherPage({super.key});
@@ -50,3 +51,6 @@ class OtherPage extends StatelessWidget {
     );
   }
 }
+
+// alternatively:
+// https://docs.flutter.dev/cookbook/persistence/reading-writing-files
