@@ -39,7 +39,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       updateMap();
     });
   } 
-  
+
     updateSetCallback(int exIndex, int setIndex, int reps, int weight) {
     setState(() {    
          
@@ -204,7 +204,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                 ),
                                 leading: const CircleAvatar(
                                     radius: 6,
-                                    backgroundColor: Colors.orange,
+                                    backgroundColor: Colors.grey,
                                   ),
                                 trailing: CircleAvatar(
                                   backgroundColor: const Color.fromARGB(100, 46, 46, 46),

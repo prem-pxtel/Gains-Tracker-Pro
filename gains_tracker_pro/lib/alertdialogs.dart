@@ -251,7 +251,9 @@ class UpdateNoteDialogBox extends StatelessWidget {
     ),
       actions: [
         MaterialButton(
-          onPressed: () { Navigator.pop(context); }, 
+          onPressed: () { Navigator.pop(context); 
+                    textController.clear();
+           }, 
           shape: RoundedRectangleBorder(
 		        borderRadius: BorderRadius.circular(20),
 	        ),
@@ -261,7 +263,8 @@ class UpdateNoteDialogBox extends StatelessWidget {
           color: Colors.blue,
           onPressed: () {
             callback(textController.text, exIndex);
-            Navigator.pop(context); 
+            Navigator.pop(context);
+            textController.clear();
           }, 
           shape: RoundedRectangleBorder(
 		        borderRadius: BorderRadius.circular(20),
