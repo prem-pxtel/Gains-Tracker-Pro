@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'homepage.dart';
 
-
 class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
 
@@ -13,28 +12,22 @@ class CalendarPage extends StatefulWidget {
 class _CalendarPageState extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
-
     var themaxValue = 0;
     wkoutMap.forEach(
       (k,v) { 
-        if (v == 0) { themaxValue = 1; }
-        else {
-          if (v > themaxValue) {
-            themaxValue = v; 
-            print(v);
-          }
-        } 
+        if (v > themaxValue) {
+          themaxValue = v;
+        }
       }
     );
-
-    Map<DateTime, int> wkoutMap10 = {
+    Map<DateTime, int> heatmapData = {
       for (var i = 0; i < wkoutMap.length; ++i) 
       wkoutMap.keys.elementAt(i)
       : (wkoutMap.values.elementAt(i) / themaxValue).round() * 10
     };
 
     return HeatMap(
-      datasets: wkoutMap10,
+      datasets: heatmapData,
       size: 30,
       startDate: DateTime.now(),
       endDate: DateTime.now().add(const Duration(days: 30)),

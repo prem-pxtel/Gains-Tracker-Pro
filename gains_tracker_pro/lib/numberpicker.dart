@@ -15,7 +15,6 @@ class NumberPickerScreen extends StatefulWidget {
 }
 
 class _NumberPickerScreenState extends State<NumberPickerScreen> {
- 
   String _curEmoji = '⏰';
   int _seconds = 60;
   double _restTime = 0;

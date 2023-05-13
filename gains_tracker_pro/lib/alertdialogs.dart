@@ -91,7 +91,6 @@ class AddExerciseAlertDialog extends StatelessWidget {
   }
 }
 
-
 // AlertDialog updateRepsDialog = UpdateRepsAlertDialog();
 
 class UpdateRepsAlertDialog extends StatefulWidget {
@@ -117,75 +116,68 @@ class _UpdateRepsAlertDialogState extends State<UpdateRepsAlertDialog> {
     return AlertDialog(
       title: const Text('Update Set'),
       content: Row(
-              children: <Widget> [
-                SizedBox(
-                  width: 90,
-                  height: 200,
-                  child: Column(
-                  
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget> [
-                    Container(
-                      padding: const EdgeInsets.only(bottom: 13, left: 30, top: 10),
-                      child: const Icon(Icons.fitness_center),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(left: 30),
-                      child:
-                    NumberPicker(
-                      minValue: 0,
-                      maxValue: 1000,
-                      haptics: true,
-                      itemWidth: 45,
-                      value: curWeight,
-                      textStyle: const TextStyle(color: Colors.grey),
-                      selectedTextStyle: TextStyle(
-                        color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.black,
-                      ),
-                      onChanged: (value) => setState(() { curWeight = value; HapticFeedback.selectionClick();})
-                    ),
-                    ),
-                  ],
+        children: <Widget> [
+          SizedBox(
+            width: 90,
+            height: 200,
+            child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget> [
+              Container(
+                padding: const EdgeInsets.only(bottom: 13, left: 30, top: 10),
+                child: const Icon(Icons.fitness_center),
+              ),
+              Container(
+                padding: const EdgeInsets.only(left: 30),
+                child:
+              NumberPicker(
+                minValue: 0,
+                maxValue: 1000,
+                haptics: true,
+                itemWidth: 45,
+                value: curWeight,
+                textStyle: const TextStyle(color: Colors.grey),
+                selectedTextStyle: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
                 ),
+                onChanged: (value) => setState(() { curWeight = value; HapticFeedback.selectionClick();})
+              ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          width: 90,
+          height: 200,
+          child:Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget> [
+              Container(
+                padding: const EdgeInsets.only(bottom: 13, left: 30, top: 10),
+                child: const Icon(Icons.tag),
+              ),
+              Container(padding: const EdgeInsets.only(left: 30), child:
+              NumberPicker(
+                minValue: 0,
+                maxValue: 125,
+                value: curReps,
+                haptics: true,
+                itemWidth: 45,
+                textStyle: const TextStyle(color: Colors.grey),
+                selectedTextStyle: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
                 ),
-                SizedBox(
-                  width: 90,
-                  height: 200,
-                  child:Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget> [
-                    Container(
-                      padding: const EdgeInsets.only(bottom: 13, left: 30, top: 10),
-                      child: const Icon(Icons.tag),
-                    ),
-                    Container(padding: const EdgeInsets.only(left: 30), child:
-                    NumberPicker(
-                      minValue: 0,
-                      maxValue: 125,
-                      value: curReps,
-                      haptics: true,
-                      itemWidth: 45,
-                      textStyle: const TextStyle(color: Colors.grey),
-                      selectedTextStyle: TextStyle(
-                        color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.black,
-                      ),
-                      onChanged: (value) => setState(() => {curReps = value, HapticFeedback.selectionClick()})
-                    ),
-                    ),
-                  ]
-                ),)
-                
-                
-              ]
-            ),
-          
-
-          
-      
+                onChanged: (value) => setState(() => {curReps = value, HapticFeedback.selectionClick()})
+              ),
+              ),
+            ]
+          ),
+        )
+      ]),
       shape: RoundedRectangleBorder(
 		    borderRadius: BorderRadius.circular(20),
 	    ),
@@ -247,13 +239,14 @@ class UpdateNoteDialogBox extends StatelessWidget {
               ),
             ),
           ),
-      ],
-    ),
+        ],
+      ),
       actions: [
         MaterialButton(
-          onPressed: () { Navigator.pop(context); 
-                    textController.clear();
-           }, 
+          onPressed: () { 
+            Navigator.pop(context); 
+            textController.clear();
+          }, 
           shape: RoundedRectangleBorder(
 		        borderRadius: BorderRadius.circular(20),
 	        ),
@@ -272,9 +265,7 @@ class UpdateNoteDialogBox extends StatelessWidget {
           child: const Text('Save')
         ),
       ],
-      shape: RoundedRectangleBorder(
-		    borderRadius: BorderRadius.circular(20),
-	    ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     );
   }
 }

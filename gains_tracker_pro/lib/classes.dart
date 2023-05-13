@@ -3,7 +3,7 @@ import 'randfuncs.dart';
 import 'package:intl/intl.dart';
 
 class Workout {
-  String wkoutName =  'New Workout';
+  late String wkoutName;
   late DateTime dt;
   late DateTime dtwithTime;
   List<Exercise> exList = [];

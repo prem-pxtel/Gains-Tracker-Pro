@@ -14,24 +14,28 @@ class ExerciseScreen extends StatefulWidget {
 }
 
 class _ExerciseScreenState extends State<ExerciseScreen> {
-  final textController = TextEditingController();
-  final textController2 = TextEditingController();
+  final tc1 = TextEditingController();
+  final tc2 = TextEditingController();
+
+ // Following callback functions called from Add/Update AlertDialogs
+
   addExCallback() {
     setState(() {
       // update exList with correct input eventually
       Exercise newEx = Exercise();
-      if (textController.text != '') {
-        newEx.exName = textController.text;
+      if (tc1.text != '') {
+        newEx.exName = tc1.text;
       } else {
         int exLenPlus1 = wkoutList[widget.wkoutIndex].exList.length + 1;
         newEx.exName = 'Exercise $exLenPlus1';
       }
-      newEx.notes = textController2.text;
+      newEx.notes = tc2.text;
       wkoutList[widget.wkoutIndex].exList.add(newEx);
-      textController.clear();
       Navigator.pop(context);
+      tc1.clear();
     });
   }
+  
   addSetCallback(Set newSet) {
     setState(() {            
       Exercise lastEx = wkoutList[widget.wkoutIndex].exList.last;
@@ -40,23 +44,14 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     });
   } 
 
-    updateSetCallback(int exIndex, int setIndex, int reps, int weight) {
+  updateSetCallback(int exIndex, int setIndex, int reps, int weight) {
     setState(() {    
-         
       Set s = wkoutList[widget.wkoutIndex].exList[exIndex].setList[setIndex];
       s.repCount = reps;
       s.weight = weight;
-      
       updateMap();
     });
   } 
-  
-  setStateCallback() {
-    setState(() {            
-      
-    }); 
-
-  }
 
   updateNoteCallback(String newNote, int exIndex) {
     setState(() {
@@ -64,8 +59,13 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     });
   }
 
+  setStateCallback() {
+    setState(() {}); 
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<Exercise> e = wkoutList[widget.wkoutIndex].exList;
     return Scaffold(
       appBar: AppBar(
         shape: const RoundedRectangleBorder(
@@ -80,7 +80,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
             showDialog(
               context: context,
               builder: (context) { // same as (context) => AddExerciseAlertD...
-                return AddExerciseAlertDialog(textController: textController, textController2: textController2 ,wkoutIndex: widget.wkoutIndex, callback: addExCallback);
+                return AddExerciseAlertDialog(textController: tc1, textController2: tc2 ,wkoutIndex: widget.wkoutIndex, callback: addExCallback);
               }
             );
           });
@@ -88,10 +88,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       ),
       body: Stack(
         children: [
-          if (wkoutList[widget.wkoutIndex].exList.isEmpty) 
-          const Center(child: Text('Add your first exercise by tapping +')),
+          if (e.isEmpty) const Center(
+            child: Text('Add your first exercise by tapping +')
+          ),
           SizedBox(
-            height: 600,
+            height: 500,
             child: ListView.builder(
               itemCount: wkoutList[widget.wkoutIndex].exList.length,
               itemBuilder: (_, exIndex) {
@@ -113,122 +114,119 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     // Then show a snackbar.
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Exercise removed')));
                   },
-                  child: Theme(data: Theme.of(context).copyWith(dividerColor: Colors.transparent), child: ExpansionTile( 
-                    title: Text(wkoutList[widget.wkoutIndex].exList[exIndex].exName),
-                    children: <Widget> [
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: wkoutList[widget.wkoutIndex].exList[exIndex].setList.length,
-                        itemBuilder: (_, setIndex) {
-                          int setIndexPlus1 = setIndex + 1;
-                          int reps = wkoutList[widget.wkoutIndex].exList[exIndex].setList[setIndex].repCount;
-                          int weight = wkoutList[widget.wkoutIndex].exList[exIndex].setList[setIndex].weight;
+                  child: Theme(
+                    data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                    child: ExpansionTile(
+                      key: ValueKey('$exIndex'),
+                      title: Text(wkoutList[widget.wkoutIndex].exList[exIndex].exName),
+                      children: <Widget> [
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: wkoutList[widget.wkoutIndex].exList[exIndex].setList.length,
+                          itemBuilder: (_, setIndex) {
+                            int setIndexPlus1 = setIndex + 1;
+                            int reps = wkoutList[widget.wkoutIndex].exList[exIndex].setList[setIndex].repCount;
+                            int weight = wkoutList[widget.wkoutIndex].exList[exIndex].setList[setIndex].weight;
 
-                          return Dismissible(
-                            key: UniqueKey(),
-                            background: Container(
-                              color: Colors.red,
-                              child: const Padding(
-                                padding: EdgeInsets.only(left:320), 
-                                child: Icon(Icons.clear),
+                            return Dismissible(
+                              key: UniqueKey(),
+                              background: Container(
+                                color: Colors.red,
+                                child: const Padding(
+                                  padding: EdgeInsets.only(left:320), 
+                                  child: Icon(Icons.clear),
+                                ),
                               ),
-                            ),
-                            onDismissed: (direction) {
-                              // Remove the item from the data source.
-                              setState(() {
-                                wkoutList[widget.wkoutIndex].exList[exIndex].setList.removeAt(setIndex);
-                              });
-                              // Then show a snackbar.
-                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Set removed')));
-                            },
-                            child: Container(
-                              margin: const EdgeInsets.all(10.0),
-                              child: ListTile(
-                                visualDensity: const VisualDensity(vertical: -4),
-                                tileColor: Theme.of(context).brightness == Brightness.dark
+                              onDismissed: (direction) {
+                                // Remove the item from the data source.
+                                setState(() {
+                                  wkoutList[widget.wkoutIndex].exList[exIndex].setList.removeAt(setIndex);
+                                });
+                                // Then show a snackbar.
+                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Set removed')));
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.all(10.0),
+                                child: ListTile(
+                                  visualDensity: const VisualDensity(vertical: -4),
+                                  tileColor: Theme.of(context).brightness == Brightness.dark
+                                    ? const Color.fromARGB(255, 46, 46, 46)
+                                    : Colors.white,
+                                  title: Text('Set $setIndexPlus1: [$reps, $weight]'),                
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                      width: 7,
+                                      color: Theme.of(context).brightness == Brightness.dark
+                                        ? const Color.fromARGB(255, 46, 46, 46)
+                                        : Colors.white,
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  leading: CircleAvatar(
+                                      radius: 6,
+                                      backgroundColor: Colors.red.shade400,
+                                    ),
+                                  trailing: CircleAvatar(
+                                    backgroundColor: const Color.fromARGB(100, 46, 46, 46),
+                                    radius: 18,
+                                    child: IconButton(
+                                      icon: const Icon(Icons.edit_note), 
+                                      onPressed: () {
+                                        setState(() {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => UpdateRepsAlertDialog(setStateCallback: setStateCallback, updateSetCallback: updateSetCallback, exIndex: exIndex, setIndex: setIndex,),
+                                          );
+                                        });
+                                      }
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                        ),
+                        
+                        if (notes != '')  Container(
+                          margin: const EdgeInsets.all(10.0), 
+                          child: ListTile(
+                            visualDensity: const VisualDensity(vertical: -4),
+                            tileColor: Theme.of(context).brightness == Brightness.dark
+                              ? const Color.fromARGB(255, 46, 46, 46)
+                              : Colors.white,
+                            title: Text('Notes: $notes'),                
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                width: 7,
+                                color: Theme.of(context).brightness == Brightness.dark
                                   ? const Color.fromARGB(255, 46, 46, 46)
                                   : Colors.white,
-                                title: Text('Set $setIndexPlus1: [$reps, $weight]'),                
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                    width: 7,
-                                    color: Theme.of(context).brightness == Brightness.dark
-                                      ? const Color.fromARGB(255, 46, 46, 46)
-                                      : Colors.white,
-                                  ),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                leading: CircleAvatar(
-                                    radius: 6,
-                                    backgroundColor: Colors.red.shade400,
-                                  ),
-                                trailing: CircleAvatar(
-                                  backgroundColor: const Color.fromARGB(100, 46, 46, 46),
-                                  radius: 18,
-                                  child: IconButton(
-                                    icon: const Icon(Icons.edit_note), 
-                                    onPressed: () {
-                                      setState(() {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) => UpdateRepsAlertDialog(setStateCallback: setStateCallback, updateSetCallback: updateSetCallback, exIndex: exIndex, setIndex: setIndex,),
-                                        );
-                                      });
-                                    }
-                                  ),
-                                ),
-                                onTap: () {
-                                  // ...
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            leading: const CircleAvatar(
+                                radius: 6,
+                                backgroundColor: Colors.grey,
+                              ),
+                            trailing: CircleAvatar(
+                              backgroundColor: const Color.fromARGB(100, 46, 46, 46),
+                              radius: 18,
+                              child: IconButton(
+                                icon: const Icon(Icons.edit_note), 
+                                onPressed: () {
+                                  setState(() {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => UpdateNoteDialogBox(callback: updateNoteCallback, exIndex: exIndex),
+                                    );
+                                  });
                                 }
                               ),
                             ),
-                          );
-                        }
-                      ),
-                      
-                      if (notes != '')  Container(
-                              margin: const EdgeInsets.all(10.0), child: ListTile(
-                                visualDensity: const VisualDensity(vertical: -4),
-                                tileColor: Theme.of(context).brightness == Brightness.dark
-                                  ? const Color.fromARGB(255, 46, 46, 46)
-                                  : Colors.white,
-                                title: Text('Notes: $notes'),                
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                    width: 7,
-                                    color: Theme.of(context).brightness == Brightness.dark
-                                      ? const Color.fromARGB(255, 46, 46, 46)
-                                      : Colors.white,
-                                  ),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                leading: const CircleAvatar(
-                                    radius: 6,
-                                    backgroundColor: Colors.grey,
-                                  ),
-                                trailing: CircleAvatar(
-                                  backgroundColor: const Color.fromARGB(100, 46, 46, 46),
-                                  radius: 18,
-                                  child: IconButton(
-                                    icon: const Icon(Icons.edit_note), 
-                                    onPressed: () {
-                                      setState(() {
-                                        
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) => UpdateNoteDialogBox(callback: updateNoteCallback, exIndex: exIndex),
-                                        );
-                                        
-                                      });
-                                    }
-                                  ),
-                                ),
-                                onTap: () {
-                                  // ...
-                                })
-                      ),
-                    ]
-                  ),
+                          )
+                        ),
+                      ]
+                    ),
                   ),
                 );
               },
