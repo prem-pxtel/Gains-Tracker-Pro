@@ -92,7 +92,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
             child: Text('Add your first exercise by tapping +')
           ),
           SizedBox(
-            height: 500,
+            height: 570,
+            // Dynamically display exercise list
             child: ListView.builder(
               itemCount: wkoutList[widget.wkoutIndex].exList.length,
               itemBuilder: (_, exIndex) {
@@ -120,6 +121,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                       key: ValueKey('$exIndex'),
                       title: Text(wkoutList[widget.wkoutIndex].exList[exIndex].exName),
                       children: <Widget> [
+                        // Dynamically display set list
                         ListView.builder(
                           shrinkWrap: true,
                           itemCount: wkoutList[widget.wkoutIndex].exList[exIndex].setList.length,
@@ -186,8 +188,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                             );
                           }
                         ),
-                        
-                        if (notes != '')  Container(
+                      // Display exercise notes, if present
+                      if (notes != '') Container(
                           margin: const EdgeInsets.all(10.0), 
                           child: ListTile(
                             visualDensity: const VisualDensity(vertical: -4),
