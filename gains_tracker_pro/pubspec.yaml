@@ -12,6 +12,7 @@ dependencies:
   intl: ^0.17.0
   flutter_heatmap_calendar: ^1.0.5
   numberpicker: ^2.1.2
+  hive: ^2.2.3
 
 dev_dependencies:
   flutter_test:
