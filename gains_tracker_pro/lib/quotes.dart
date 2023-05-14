@@ -1,5 +1,6 @@
 List<Map<String, String?>> quoteList = [
 // JSON format
+  // Gains Corp Quotes
   {
     "text": "Get gains or die trying.",
     "author": "San Basnet"
@@ -13,9 +14,38 @@ List<Map<String, String?>> quoteList = [
     "author": "Prem Patel"
   },  
   {
-    "text": "The gym is no man's land",
-    "author": "San Basnet"
+    "text": "Gains today will never go away.",
+    "author": "Prem Patel"
   },
+  {
+    "text": "Gains are here to stay.",
+    "author": "Prem Patel"
+  },
+  {
+    "text": "HARD WORK + DETERMINATION = GAINS",
+    "author": "Prem Patel"
+  },
+  {
+    "text": "Its not leg day, its YOU day.",
+    "author": "Prem Patel"
+  },
+  {
+    "text": "Every day is gains day.",
+    "author": "Prem Patel"
+  },
+  {
+    "text": "It might have been a joke to you, but it never was for me.",
+    "author": "Prem Patel"
+  },
+  {
+    "text": "Trust the process.",
+    "author": "Prem Patel"
+  },
+  {
+    "text": "Don't be afraid of the gains; they don't bite.",
+    "author": "Prem Patel"
+  },
+  // API Quotes
   {
     "text": "Genius is one percent inspiration and ninety-nine percent perspiration.",
     "author": "Thomas Edison"
