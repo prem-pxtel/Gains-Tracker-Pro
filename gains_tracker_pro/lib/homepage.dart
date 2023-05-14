@@ -8,8 +8,6 @@ import 'mapfuncs.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 WorkoutDatabase db = WorkoutDatabase();
-
-Map<DateTime, int> wkoutMap = {};
 int curWeight = 30;
 int curReps = 8;
 

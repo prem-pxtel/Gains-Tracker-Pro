@@ -27,5 +27,5 @@ void updateMap(DateTime key) {
 */
 
 void updateMap() {
-  wkoutMap.putIfAbsent(db.wkoutList.last.dt, () => getVol(db.wkoutList.last.exList));
+  db.wkoutMap.putIfAbsent(db.wkoutList.last.dt, () => getVol(db.wkoutList.last.exList));
 }

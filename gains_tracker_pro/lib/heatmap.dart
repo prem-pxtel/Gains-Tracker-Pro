@@ -13,7 +13,7 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
     var themaxValue = 0;
-    wkoutMap.forEach(
+    db.wkoutMap.forEach(
       (k,v) { 
         if (v > themaxValue) {
           themaxValue = v;
@@ -21,9 +21,9 @@ class _CalendarPageState extends State<CalendarPage> {
       }
     );
     Map<DateTime, int> heatmapData = {
-      for (var i = 0; i < wkoutMap.length; ++i) 
-      wkoutMap.keys.elementAt(i)
-      : (wkoutMap.values.elementAt(i) / themaxValue).round() * 10
+      for (var i = 0; i < db.wkoutMap.length; ++i) 
+      db.wkoutMap.keys.elementAt(i)
+      : (db.wkoutMap.values.elementAt(i) / themaxValue).round() * 10
     };
 
     return HeatMap(
