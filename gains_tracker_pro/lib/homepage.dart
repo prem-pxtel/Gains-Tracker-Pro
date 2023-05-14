@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:gains_tracker_pro/exercises.dart';
+import 'database.dart';
+import 'exercises.dart';
 import 'classes.dart';
 import 'heatmap.dart';
 import 'other.dart';
+import 'mapfuncs.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-List<Workout> wkoutList = [];
+WorkoutDatabase db = WorkoutDatabase();
+
 Map<DateTime, int> wkoutMap = {};
 int curWeight = 30;
 int curReps = 8;
@@ -17,7 +21,16 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  final _myBox = Hive.box('theBox');
   int currentPageIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    if (_myBox.get("WKOUTLIST") != null) {print('HERE'); db.loadData();}
+    print('damn');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,18 +46,19 @@ class HomePageState extends State<HomePage> {
         onPressed: () {
           setState(() {
             Workout newWkout = Workout();
-            wkoutList.add(newWkout);
+            db.wkoutList.add(newWkout);
+            db.updateDatabase();
           });
         }
       ),
       body:<Widget>[
         Stack(
           children: [
-            if (wkoutList.isEmpty) const Center(child: Text('No Gains ❌')),
+            if (db.wkoutList.isEmpty) const Center(child: Text('No Gains ❌')),
             ListView.builder(
-              itemCount: wkoutList.length,
+              itemCount: db.wkoutList.length,
               itemBuilder: (_, index) {
-                int reverseIndex = wkoutList.length - 1 - index;
+                int reverseIndex = db.wkoutList.length - 1 - index;
                 return Dismissible(
                   key: UniqueKey(),
                   background: Container(
@@ -57,14 +71,16 @@ class HomePageState extends State<HomePage> {
                   onDismissed: (direction) {
                     // Remove the item from the data source.
                     setState(() {
-                      wkoutList.removeAt(reverseIndex);
+                      db.wkoutList.removeAt(reverseIndex);
+                      updateMap();
+                      db.updateDatabase();
                     });
                     // Then show a snackbar.
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Workout removed')));
                   },
                   child: ListTile(
-                    tileColor: wkoutList[reverseIndex].c,
-                    title: Text(wkoutList[reverseIndex].wkoutName),                
+                    tileColor: db.wkoutList[reverseIndex].c,
+                    title: Text(db.wkoutList[reverseIndex].wkoutName),                
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
                         width: 7,
@@ -76,7 +92,7 @@ class HomePageState extends State<HomePage> {
                     ),
                     leading: CircleAvatar(
                       backgroundColor: Colors.black,
-                      child: Text(wkoutList[reverseIndex].emoji),
+                      child: Text(db.wkoutList[reverseIndex].emoji),
                     ),
                     onTap: () {
                       Navigator.push(

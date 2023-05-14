@@ -17,9 +17,9 @@ int getVol(List<Exercise> exList) {
 /*
 void updateMap(DateTime key) {
   int volume = 0;
-  for (int i = 0; i < wkoutList.length; ++i) {
-    if (wkoutList[i].dt == key) {
-      volume += getVol(wkoutList[i].exList);
+  for (int i = 0; i < db.wkoutList.length; ++i) {
+    if (db.wkoutList[i].dt == key) {
+      volume += getVol(db.wkoutList[i].exList);
     }
   }
   wkoutMap[key] = volume;
@@ -27,5 +27,5 @@ void updateMap(DateTime key) {
 */
 
 void updateMap() {
-  wkoutMap.putIfAbsent(wkoutList.last.dt, () => getVol(wkoutList.last.exList));
+  wkoutMap.putIfAbsent(db.wkoutList.last.dt, () => getVol(db.wkoutList.last.exList));
 }

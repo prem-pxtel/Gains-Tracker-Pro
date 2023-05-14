@@ -26,36 +26,40 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       if (tc1.text != '') {
         newEx.exName = tc1.text;
       } else {
-        int exLenPlus1 = wkoutList[widget.wkoutIndex].exList.length + 1;
+        int exLenPlus1 = db.wkoutList[widget.wkoutIndex].exList.length + 1;
         newEx.exName = 'Exercise $exLenPlus1';
       }
       newEx.notes = tc2.text;
-      wkoutList[widget.wkoutIndex].exList.add(newEx);
+      db.wkoutList[widget.wkoutIndex].exList.add(newEx);
       Navigator.pop(context);
       tc1.clear();
+      db.updateDatabase();
     });
   }
   
   addSetCallback(Set newSet) {
     setState(() {            
-      Exercise lastEx = wkoutList[widget.wkoutIndex].exList.last;
+      Exercise lastEx = db.wkoutList[widget.wkoutIndex].exList.last;
       lastEx.setList.add(newSet);
       updateMap();
+      db.updateDatabase();
     });
   } 
 
   updateSetCallback(int exIndex, int setIndex, int reps, int weight) {
     setState(() {    
-      Set s = wkoutList[widget.wkoutIndex].exList[exIndex].setList[setIndex];
+      Set s = db.wkoutList[widget.wkoutIndex].exList[exIndex].setList[setIndex];
       s.repCount = reps;
       s.weight = weight;
       updateMap();
+      db.updateDatabase();
     });
   } 
 
   updateNoteCallback(String newNote, int exIndex) {
     setState(() {
-    wkoutList[widget.wkoutIndex].exList[exIndex].notes = newNote;
+    db.wkoutList[widget.wkoutIndex].exList[exIndex].notes = newNote;
+    db.updateDatabase();
     });
   }
 
@@ -65,7 +69,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Exercise> e = wkoutList[widget.wkoutIndex].exList;
+    List<Exercise> e = db.wkoutList[widget.wkoutIndex].exList;
     return Scaffold(
       appBar: AppBar(
         shape: const RoundedRectangleBorder(
@@ -95,9 +99,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
             height: 570,
             // Dynamically display exercise list
             child: ListView.builder(
-              itemCount: wkoutList[widget.wkoutIndex].exList.length,
+              itemCount: db.wkoutList[widget.wkoutIndex].exList.length,
               itemBuilder: (_, exIndex) {
-                String notes = wkoutList[widget.wkoutIndex].exList[exIndex].notes;
+                String notes = db.wkoutList[widget.wkoutIndex].exList[exIndex].notes;
                 return Dismissible(
                   key: UniqueKey(),
                   background: Container(
@@ -110,7 +114,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   onDismissed: (direction) {
                     // Remove the item from the data source.
                     setState(() {
-                      wkoutList[widget.wkoutIndex].exList.removeAt(exIndex);
+                      db.wkoutList[widget.wkoutIndex].exList.removeAt(exIndex);
+                      updateMap();
+                      db.updateDatabase();
                     });
                     // Then show a snackbar.
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Exercise removed')));
@@ -119,16 +125,16 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                     child: ExpansionTile(
                       key: ValueKey('$exIndex'),
-                      title: Text(wkoutList[widget.wkoutIndex].exList[exIndex].exName),
+                      title: Text(db.wkoutList[widget.wkoutIndex].exList[exIndex].exName),
                       children: <Widget> [
                         // Dynamically display set list
                         ListView.builder(
                           shrinkWrap: true,
-                          itemCount: wkoutList[widget.wkoutIndex].exList[exIndex].setList.length,
+                          itemCount: db.wkoutList[widget.wkoutIndex].exList[exIndex].setList.length,
                           itemBuilder: (_, setIndex) {
                             int setIndexPlus1 = setIndex + 1;
-                            int reps = wkoutList[widget.wkoutIndex].exList[exIndex].setList[setIndex].repCount;
-                            int weight = wkoutList[widget.wkoutIndex].exList[exIndex].setList[setIndex].weight;
+                            int reps = db.wkoutList[widget.wkoutIndex].exList[exIndex].setList[setIndex].repCount;
+                            int weight = db.wkoutList[widget.wkoutIndex].exList[exIndex].setList[setIndex].weight;
 
                             return Dismissible(
                               key: UniqueKey(),
@@ -142,7 +148,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                               onDismissed: (direction) {
                                 // Remove the item from the data source.
                                 setState(() {
-                                  wkoutList[widget.wkoutIndex].exList[exIndex].setList.removeAt(setIndex);
+                                  db.wkoutList[widget.wkoutIndex].exList[exIndex].setList.removeAt(setIndex);
+                                  updateMap();
+                                  db.updateDatabase();
                                 });
                                 // Then show a snackbar.
                                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Set removed')));

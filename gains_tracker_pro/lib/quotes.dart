@@ -46,8 +46,8 @@ List<Map<String, String?>> quoteList = [
     "author": "Prem Patel"
   },
   {
-    "text": "Trust the process.",
-    "author": "Prem Patel"
+    "text": "Trust the process, trust the gains.",
+    "author": "Prem Patel, San Basnet"
   },
   {
     "text": "Don't be afraid of the gains; they don't bite.",

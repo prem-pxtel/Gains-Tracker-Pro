@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:gains_tracker_pro/classes.dart';
 import 'homepage.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main() async {
+  // initialize Hive, register adapters, and open a box
+  await Hive.initFlutter();
+  Hive.registerAdapter(WorkoutAdapter());
+  Hive.registerAdapter(ExerciseAdapter());
+  Hive.registerAdapter(SetAdapter());
+  await Hive.openBox('theBox');
+
   runApp(const MainApp());
 }
 
