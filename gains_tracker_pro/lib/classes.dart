@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'randfuncs.dart';
 import 'package:intl/intl.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -17,8 +16,8 @@ class Workout {
   List<Exercise> exList = [];
   @HiveField(4)
   String emoji = randEmoji();
-  
-  Color c = randColor();
+  @HiveField(5)
+  int colorVal = randColor().value;
 
   Workout() {
     final DateTime now = DateTime.now();

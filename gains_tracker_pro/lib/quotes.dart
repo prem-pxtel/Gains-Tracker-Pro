@@ -9,7 +9,7 @@ List<Map<String, String?>> quoteList = [
     "text": "The gym is no man's land",
     "author": "San Basnet"
   },
-    {
+  {
     "text": "To get gains or not to get gains. That is the question.",
     "author": "Prem Patel"
   },  
@@ -52,6 +52,42 @@ List<Map<String, String?>> quoteList = [
   {
     "text": "Don't be afraid of the gains; they don't bite.",
     "author": "Prem Patel"
+  },
+  {
+    "text": "Gains are like money; they don't grow on trees.",
+    "author": "San Basnet"
+  },
+  {
+    "text": "The grass is always greener on the other side; so are the gains.",
+    "author": "San Basnet"
+  },
+  {
+    "text": "Hurt so good. Gains so good.",
+    "author": "San Basnet"
+  },
+  {
+    "text": "Got more gains than the hotdog man.",
+    "author": "Prem Patel"
+  },
+  {
+    "text": "Why you standing around, fool? Get some gains.",
+    "author": "San Basnet"
+  },
+  {
+    "text": "Get some gains. What else do you have to live for?",
+    "author": "Prem Patel"
+  },
+  {
+    "text": "Gains is like butter; it's all-consuming.",
+    "author": "San Basnet"
+  },
+  {
+    "text": "Gains come first. Respect comes second.",
+    "author": "Prem Patel"
+  },
+  {
+    "text": "Consistency is key. And the key unlocks gains.",
+    "author": "San Basnet"
   },
   // API Quotes
   {

@@ -21,13 +21,14 @@ class WorkoutAdapter extends TypeAdapter<Workout> {
       ..dt = fields[1] as DateTime
       ..dtwithTime = fields[2] as DateTime
       ..exList = (fields[3] as List).cast<Exercise>()
-      ..emoji = fields[4] as String;
+      ..emoji = fields[4] as String
+      ..colorVal = fields[5] as int;
   }
 
   @override
   void write(BinaryWriter writer, Workout obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.wkoutName)
       ..writeByte(1)
@@ -37,7 +38,9 @@ class WorkoutAdapter extends TypeAdapter<Workout> {
       ..writeByte(3)
       ..write(obj.exList)
       ..writeByte(4)
-      ..write(obj.emoji);
+      ..write(obj.emoji)
+      ..writeByte(5)
+      ..write(obj.colorVal);
   }
 
   @override

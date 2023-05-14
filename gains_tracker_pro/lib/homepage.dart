@@ -27,8 +27,7 @@ class HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    if (_myBox.get("WKOUTLIST") != null) {print('HERE'); db.loadData();}
-    print('damn');
+    if (_myBox.get("WKOUTLIST") != null) db.loadData();
   }
 
   @override
@@ -79,7 +78,7 @@ class HomePageState extends State<HomePage> {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Workout removed')));
                   },
                   child: ListTile(
-                    tileColor: db.wkoutList[reverseIndex].c,
+                    tileColor: Color(db.wkoutList[reverseIndex].colorVal),
                     title: Text(db.wkoutList[reverseIndex].wkoutName),                
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
