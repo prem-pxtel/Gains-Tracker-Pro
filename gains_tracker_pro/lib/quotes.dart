@@ -14,7 +14,7 @@ List<Map<String, String?>> quoteList = [
     "author": "Prem Patel"
   },  
   {
-    "text": "Gains today never go away; These gains are here to stay.",
+    "text": "Gains today never go away. These gains are here to stay.",
     "author": "Prem Patel, San Basnet"
   },
 
