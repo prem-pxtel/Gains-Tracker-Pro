@@ -35,6 +35,10 @@ List<Map<String, String?>> quoteList = [
   },
   {
     "text": "Don't be impatient with the gains; easy does it.",
+    "author": "San Basnet, Prem Patel"
+  },
+  {
+    "text": "Track your gains before they disappear.",
     "author": "Prem Patel"
   },
   {
