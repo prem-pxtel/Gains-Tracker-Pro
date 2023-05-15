@@ -74,9 +74,13 @@ class AddExerciseAlertDialog extends StatelessWidget {
         MaterialButton(
           color: Colors.blue,
           onPressed: () {
-            //setState(() { must find a way to setState of ExerciseScreen widget --> CALLBACK()
+            if (db.wkoutList[wkoutIndex].exExists(textController.text)) {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Exercise already exists.')));
+            } else {
+            //setState(() { must find a way to setState of ExerciseScreen widget --> callback function
               callback();
             //});
+            }
           }, 
           shape: RoundedRectangleBorder(
 		        borderRadius: BorderRadius.circular(20),

@@ -29,6 +29,13 @@ class Workout {
     dtwithTime = now;
     wkoutName = formattedDate;
   }
+
+  bool exExists(String newExName) {
+    for (int i = 0; i < exList.length; ++i) {
+      if (exList[i].exName == newExName) return true;
+    }
+    return false;
+  }
 }
 
 @HiveType(typeId: 1)
