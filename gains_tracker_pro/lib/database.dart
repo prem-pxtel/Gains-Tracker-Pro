@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 class WorkoutDatabase {
   List wkoutList = [];
   Map wkoutMap = {};
+  Map prMap = {};
 
   // reference box
   final _myBox = Hive.box('theBox');

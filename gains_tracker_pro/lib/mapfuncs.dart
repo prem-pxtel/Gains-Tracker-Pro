@@ -14,18 +14,14 @@ int getVol(List<Exercise> exList) {
   return totalVol;
 }
 
-/*
-void updateMap(DateTime key) {
-  int volume = 0;
-  for (int i = 0; i < db.wkoutList.length; ++i) {
-    if (db.wkoutList[i].dt == key) {
-      volume += getVol(db.wkoutList[i].exList);
-    }
-  }
-  wkoutMap[key] = volume;
-}
-*/
-
 void updateMap() {
   db.wkoutMap.putIfAbsent(db.wkoutList.last.dt, () => getVol(db.wkoutList.last.exList));
+}
+
+void prsorter() {
+  for (int i = 1; i <= db.wkoutList.length;) {
+    for (int j = 1; j <= db.wkoutList[i].exList.length;){
+      
+    }
+  }
 }

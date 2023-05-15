@@ -60,3 +60,16 @@ class Set {
     weight = theWeight;
   }
 }
+
+@HiveType(typeId: 3)
+class PR {
+  @HiveField(0)
+  late int prWeight;
+  @HiveField(1)
+  late DateTime prDatetime;
+
+  PR(int weight, DateTime dt) {
+    this.prWeight = weight;
+    this.prDatetime = dt;
+  }
+}
