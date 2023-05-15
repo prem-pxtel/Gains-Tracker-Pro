@@ -44,6 +44,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       updateMap();
       db.updateDatabase();
 
+      // if (db.prMap[lastEx.exName] == null || 
+      //     newSet.weight > db.prMap[lastEx.exName].weight) { add PR to map }
+
        if (db.prMap.isEmpty){
         PR newPR = PR(newSet.weight, db.wkoutList[widget.wkoutIndex].dt);
         db.prMap[lastEx.exName] = newPR;

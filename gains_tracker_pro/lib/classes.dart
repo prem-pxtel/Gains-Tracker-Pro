@@ -69,7 +69,7 @@ class PR {
   late DateTime prDatetime;
 
   PR(int weight, DateTime dt) {
-    this.prWeight = weight;
-    this.prDatetime = dt;
+    prWeight = weight;
+    prDatetime = dt;
   }
 }

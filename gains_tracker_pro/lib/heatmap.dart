@@ -15,9 +15,7 @@ class _CalendarPageState extends State<CalendarPage> {
     var themaxValue = 0;
     db.wkoutMap.forEach(
       (k,v) { 
-        if (v > themaxValue) {
-          themaxValue = v;
-        }
+        if (v > themaxValue) themaxValue = v;
       }
     );
     Map<DateTime, int> heatmapData = {
@@ -27,7 +25,7 @@ class _CalendarPageState extends State<CalendarPage> {
     };
 
     return Row(
-      children: [HeatMap(
+      children: [ HeatMap(
       datasets: heatmapData,
       size: 30,
       startDate: DateTime.now(),
