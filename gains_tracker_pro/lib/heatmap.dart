@@ -26,7 +26,8 @@ class _CalendarPageState extends State<CalendarPage> {
       : (db.wkoutMap.values.elementAt(i) / themaxValue).round() * 10
     };
 
-    return HeatMap(
+    return Row(
+      children: [HeatMap(
       datasets: heatmapData,
       size: 30,
       startDate: DateTime.now(),
@@ -49,6 +50,16 @@ class _CalendarPageState extends State<CalendarPage> {
       onClick: (value) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString())));
       },
-    );
+    ),
+    ListView.builder(
+      itemCount: 0,
+      itemBuilder: (context, index) {
+        
+      },
+    )
+
+    ],);
+    
+    
   }
 }

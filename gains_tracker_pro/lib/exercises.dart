@@ -43,7 +43,23 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       lastEx.setList.add(newSet);
       updateMap();
       db.updateDatabase();
-    });
+
+       if (db.prMap.isEmpty){
+        PR newPR = PR(newSet.weight, db.wkoutList[widget.wkoutIndex].dt);
+        db.prMap[lastEx.exName] = newPR;
+      }
+      else {
+        if (db.prMap[lastEx.exName][1] < newSet.weight ){
+          PR newPR = PR(newSet.weight, db.wkoutList[widget.wkoutIndex].dt);
+          db.prMap[lastEx.exName] = newPR;
+        
+      }
+      else {
+        null;
+      }
+      }
+
+  });
   } 
 
   updateSetCallback(int exIndex, int setIndex, int reps, int weight) {
@@ -53,6 +69,15 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       s.weight = weight;
       updateMap();
       db.updateDatabase();
+      
+      if (db.prMap[db.wkoutList[widget.wkoutIndex].exList[exIndex].exName][1] < s.weight ){
+          PR newPR = PR(s.weight, db.wkoutList[widget.wkoutIndex].dt);
+          db.prMap[db.wkoutList[widget.wkoutIndex].exList[exIndex].exName] = newPR;
+        
+      }
+      else {
+        null;
+      }
     });
   } 
 
@@ -117,6 +142,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                       db.wkoutList[widget.wkoutIndex].exList.removeAt(exIndex);
                       updateMap();
                       db.updateDatabase();
+                      
                     });
                     // Then show a snackbar.
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Exercise removed')));
