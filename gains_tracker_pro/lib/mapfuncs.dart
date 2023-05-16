@@ -29,8 +29,8 @@ PR prsorterExlist(String Exname) {
     if (exindexPR != -1) {}
     else {
       for (int setIndexafterdel = 1; i <= db.wkoutList[i].exList[exindexPR].setList.length;){
-        if (db.wkoutList[i].exList[exindexPR].setList[setIndexafterdel].weight >= afterdelpr) {
-          afterdelpr = db.wkoutList[i].exList[exindexPR].setList[setIndexafterdel].weight;
+        if (db.wkoutList[i].exList[exindexPR].setList[setIndexafterdel].prWeight >= afterdelpr) {
+          afterdelpr = db.wkoutList[i].exList[exindexPR].setList[setIndexafterdel].prWeight;
           afterdeldate = db.wkoutList[i].dt;
           PR newPR = PR(afterdelpr, afterdeldate);
           return newPR;
@@ -55,7 +55,7 @@ PR prsorterExlist(String Exname) {
   }
 
   void prUpdaterWkout(deletedwkout){
-    for (int i = 1 ; i<=db.wkoutList[deletedwkout].length;){
+    for (int i = 1 ; i<=db.wkoutList.length;){
       updatePRMap(db.wkoutList[deletedwkout].exList, i);
     }
   }

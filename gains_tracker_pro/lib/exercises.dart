@@ -45,7 +45,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       db.updateDatabase();
       
        if (db.prMap[lastEx.exName] == null || 
-           newSet.weight > db.prMap[lastEx.exName].weight) {
+           newSet.weight > db.prMap[lastEx.exName].prWeight) {
         PR newPR = PR(newSet.weight, db.wkoutList[widget.wkoutIndex].dt);
         db.prMap[lastEx.exName] = newPR;
       }
@@ -61,7 +61,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       updateMap();
       db.updateDatabase();
       
-      if (s.weight > db.prMap[db.wkoutList[widget.wkoutIndex].exList[exIndex].exName].weight){
+      if (s.weight > db.prMap[db.wkoutList[widget.wkoutIndex].exList[exIndex].exName].prWeight){
           PR newPR = PR(s.weight, db.wkoutList[widget.wkoutIndex].dt);
           db.prMap[db.wkoutList[widget.wkoutIndex].exList[exIndex].exName] = newPR;
       }

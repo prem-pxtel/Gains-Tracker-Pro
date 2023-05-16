@@ -126,3 +126,37 @@ class SetAdapter extends TypeAdapter<Set> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+class PRAdapter extends TypeAdapter<PR> {
+  @override
+  final int typeId = 3;
+
+  @override
+  PR read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return PR(fields[0] as int, fields[1] as DateTime);
+  }
+
+  @override
+  void write(BinaryWriter writer, PR obj) {
+    writer
+      ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.prWeight)
+      ..writeByte(1)
+      ..write(obj.prDatetime);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PRAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}

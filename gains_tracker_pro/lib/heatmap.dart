@@ -11,8 +11,11 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
+
   @override
   Widget build(BuildContext context) {
+    List prMapList = db.prMap.values.toList();
+    debugPrint('${prMapList[0]}');
     var themaxValue = 0;
     db.wkoutMap.forEach(
       (k,v) { 
@@ -25,7 +28,7 @@ class _CalendarPageState extends State<CalendarPage> {
       : (db.wkoutMap.values.elementAt(i) / themaxValue).round() * 10
     };
 
-    return Row(
+    return Column(
       children: [ HeatMap(
       datasets: heatmapData,
       size: 30,
@@ -50,29 +53,34 @@ class _CalendarPageState extends State<CalendarPage> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString())));
       },
     ),
+    SizedBox(height: 300, child: 
     ListView.builder(
       itemCount: db.prMap.length,
       itemBuilder: (context, index) {
-        return ListTile(
-                    tileColor: randColor(),
-                    title: Text('PR: ${db.prMap[index]}'),                
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        width: 7,
-                        color: Theme.of(context).brightness == Brightness.dark
-                          ? const Color.fromARGB(255, 46, 46, 46)
-                          : Colors.white,
-                      ),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    leading: const CircleAvatar(
-                      backgroundColor: Colors.black,
-                      child: Text('S'),
-                    ),
-                  );
+        String exName = prMapList[index].key;
+        int weight = prMapList[index].value.prWeight;
+
+        return ListTile(          
+          tileColor: randColor(),
+            title: Text('$exName: $weight'),                
+            shape: RoundedRectangleBorder(
+              side: BorderSide(
+                width: 7,
+                color: Theme.of(context).brightness == Brightness.dark
+                  ? const Color.fromARGB(255, 46, 46, 46)
+                  : Colors.white,
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            leading: const CircleAvatar(
+              backgroundColor: Colors.black,
+              child: Text('S'),
+            ),
+          );
         
       },
     )
+    ),
 
     ],);
     
