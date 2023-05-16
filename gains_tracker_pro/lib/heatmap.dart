@@ -64,7 +64,7 @@ class _CalendarPageState extends State<CalendarPage> {
 
           return ListTile(          
             tileColor: randColor(),
-              title: Text('$prKeylist[i]: yes'),                
+              title: Text('${prKeylist[i]}: yes'),                
               shape: RoundedRectangleBorder(
                 side: BorderSide(
                   width: 7,
