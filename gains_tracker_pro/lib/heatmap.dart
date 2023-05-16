@@ -11,9 +11,10 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
+  List prKeys = db.prMap.keys.toList();
+  List prVals = db.prMap.values.toList();
 
   @override
-  List prKeylist = [];
   Widget build(BuildContext context) {
     var themaxValue = 0;
     db.wkoutMap.forEach(
@@ -32,7 +33,7 @@ class _CalendarPageState extends State<CalendarPage> {
       datasets: heatmapData,
       size: 30,
       startDate: DateTime.now(),
-      endDate: DateTime.now().add(const Duration(days: 30)),
+      endDate: DateTime.now().add(const Duration(days: 60)),
       colorMode: ColorMode.opacity,
       showText: false,
       scrollable: true,
@@ -56,15 +57,11 @@ class _CalendarPageState extends State<CalendarPage> {
     ListView.builder(
       itemCount: db.prMap.length,
       itemBuilder: (context, index) {
-        db.prMap.forEach((key, value) {
-          prKeylist.insert(-1, key);
-        });
-
-        for (int i = 1; i <= prKeylist.length;){
 
           return ListTile(          
             tileColor: randColor(),
-              title: Text('${prKeylist[i]}: yes'),                
+              title: Text('${prKeys[index]}: ${prVals[index].prWeight} lbs'),
+              trailing: Text('${prVals[index].prDatetime.month}-${prVals[index].prDatetime.day}-${prVals[index].prDatetime.year}'),
               shape: RoundedRectangleBorder(
                 side: BorderSide(
                   width: 7,
@@ -76,12 +73,12 @@ class _CalendarPageState extends State<CalendarPage> {
               ),
               leading: const CircleAvatar(
                 backgroundColor: Colors.black,
-                child: Text('S'),
+                child: Text('PR'),
               ),
             );
         }
         
-      },
+      
     )
     ),
 

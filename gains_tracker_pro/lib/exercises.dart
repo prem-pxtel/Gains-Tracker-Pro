@@ -65,6 +65,10 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
           PR newPR = PR(s.weight, db.wkoutList[widget.wkoutIndex].dt);
           db.prMap[db.wkoutList[widget.wkoutIndex].exList[exIndex].exName] = newPR;
       }
+      else{
+       //work on this later
+       // updatePRMap(db.wkoutList[widget.wkoutIndex].exList, exIndex);
+      }
     });
   } 
 
