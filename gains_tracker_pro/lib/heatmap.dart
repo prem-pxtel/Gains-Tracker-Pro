@@ -13,9 +13,8 @@ class CalendarPage extends StatefulWidget {
 class _CalendarPageState extends State<CalendarPage> {
 
   @override
+  List prKeylist = [];
   Widget build(BuildContext context) {
-    List prMapList = db.prMap.values.toList();
-    debugPrint('${prMapList[0]}');
     var themaxValue = 0;
     db.wkoutMap.forEach(
       (k,v) { 
@@ -57,26 +56,30 @@ class _CalendarPageState extends State<CalendarPage> {
     ListView.builder(
       itemCount: db.prMap.length,
       itemBuilder: (context, index) {
-        String exName = prMapList[index].key;
-        int weight = prMapList[index].value.prWeight;
+        db.prMap.forEach((key, value) {
+          prKeylist.insert(-1, key);
+        });
 
-        return ListTile(          
-          tileColor: randColor(),
-            title: Text('$exName: $weight'),                
-            shape: RoundedRectangleBorder(
-              side: BorderSide(
-                width: 7,
-                color: Theme.of(context).brightness == Brightness.dark
-                  ? const Color.fromARGB(255, 46, 46, 46)
-                  : Colors.white,
+        for (int i = 1; i <= prKeylist.length;){
+
+          return ListTile(          
+            tileColor: randColor(),
+              title: Text('$prKeylist[i]: yes'),                
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  width: 7,
+                  color: Theme.of(context).brightness == Brightness.dark
+                    ? const Color.fromARGB(255, 46, 46, 46)
+                    : Colors.white,
+                ),
+                borderRadius: BorderRadius.circular(20),
               ),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            leading: const CircleAvatar(
-              backgroundColor: Colors.black,
-              child: Text('S'),
-            ),
-          );
+              leading: const CircleAvatar(
+                backgroundColor: Colors.black,
+                child: Text('S'),
+              ),
+            );
+        }
         
       },
     )
