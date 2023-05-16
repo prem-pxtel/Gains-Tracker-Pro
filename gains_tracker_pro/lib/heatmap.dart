@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+import 'package:gains_tracker_pro/randfuncs.dart';
 import 'homepage.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -50,8 +51,25 @@ class _CalendarPageState extends State<CalendarPage> {
       },
     ),
     ListView.builder(
-      itemCount: 0,
+      itemCount: db.prMap.length,
       itemBuilder: (context, index) {
+        return ListTile(
+                    tileColor: randColor(),
+                    title: Text('PR: ${db.prMap[index]}'),                
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        width: 7,
+                        color: Theme.of(context).brightness == Brightness.dark
+                          ? const Color.fromARGB(255, 46, 46, 46)
+                          : Colors.white,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    leading: const CircleAvatar(
+                      backgroundColor: Colors.black,
+                      child: Text('S'),
+                    ),
+                  );
         
       },
     )

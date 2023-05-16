@@ -43,23 +43,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       lastEx.setList.add(newSet);
       updateMap();
       db.updateDatabase();
-
-      // if (db.prMap[lastEx.exName] == null || 
-      //     newSet.weight > db.prMap[lastEx.exName].weight) { add PR to map }
-
-       if (db.prMap.isEmpty){
+      
+       if (db.prMap[lastEx.exName] == null || 
+           newSet.weight > db.prMap[lastEx.exName].weight) {
         PR newPR = PR(newSet.weight, db.wkoutList[widget.wkoutIndex].dt);
         db.prMap[lastEx.exName] = newPR;
-      }
-      else {
-        if (db.prMap[lastEx.exName][1] < newSet.weight ){
-          PR newPR = PR(newSet.weight, db.wkoutList[widget.wkoutIndex].dt);
-          db.prMap[lastEx.exName] = newPR;
-        
-      }
-      else {
-        null;
-      }
       }
 
   });
@@ -73,13 +61,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       updateMap();
       db.updateDatabase();
       
-      if (db.prMap[db.wkoutList[widget.wkoutIndex].exList[exIndex].exName][1] < s.weight ){
+      if (s.weight > db.prMap[db.wkoutList[widget.wkoutIndex].exList[exIndex].exName].weight){
           PR newPR = PR(s.weight, db.wkoutList[widget.wkoutIndex].dt);
           db.prMap[db.wkoutList[widget.wkoutIndex].exList[exIndex].exName] = newPR;
-        
-      }
-      else {
-        null;
       }
     });
   } 
@@ -97,7 +81,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Exercise> e = db.wkoutList[widget.wkoutIndex].exList;
+    List<Exercise> exList = db.wkoutList[widget.wkoutIndex].exList;
     return Scaffold(
       appBar: AppBar(
         shape: const RoundedRectangleBorder(
@@ -120,7 +104,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       ),
       body: Stack(
         children: [
-          if (e.isEmpty) const Center(
+          if (exList.isEmpty) const Center(
             child: Text('Add your first exercise by tapping +')
           ),
           SizedBox(
@@ -145,6 +129,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                       db.wkoutList[widget.wkoutIndex].exList.removeAt(exIndex);
                       updateMap();
                       db.updateDatabase();
+                      updatePRMap(exList, exIndex);
                       
                     });
                     // Then show a snackbar.
@@ -180,6 +165,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                   db.wkoutList[widget.wkoutIndex].exList[exIndex].setList.removeAt(setIndex);
                                   updateMap();
                                   db.updateDatabase();
+                                  updatePRMap(exList, exIndex);
+
                                 });
                                 // Then show a snackbar.
                                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Set removed')));

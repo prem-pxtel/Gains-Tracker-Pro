@@ -71,6 +71,8 @@ class HomePageState extends State<HomePage> {
                       db.wkoutList.removeAt(reverseIndex);
                       updateMap();
                       db.updateDatabase();
+                      prUpdaterWkout(reverseIndex);
+
                     });
                     // Then show a snackbar.
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Workout removed')));
