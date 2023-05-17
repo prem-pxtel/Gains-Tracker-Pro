@@ -86,6 +86,39 @@ List<Map<String, String?>> quoteList = [
     "text": "Consistency is key. And the key unlocks gains.",
     "author": "San Basnet"
   },
+  {
+    "text": "Success * Gains = Gains^2.",
+    "author": "Prem Patel"
+  },
+  {
+    "text": "Gains = Alhamdulilah; No gains = Astaghfirullah",
+    "author": "San Basnet"
+  },
+  {
+    "text": "Without suffering, there is no such thing as gains.",
+    "author": "Prem Patel"
+  },
+  {
+    "text": "Make momma proud; get gains. ",
+    "author": "San Basnet"
+  },
+  {
+    "text": "Success is a function of gains; gains is a function of grinding.",
+    "author": "Prem Patel"
+  },
+  {
+    "text": "If not gains, then what?",
+    "author": "Prem Patel"
+  },
+  {
+    "text": "Gym is the way, GAINS is the PAY. ",
+    "author": "Prem Patel"
+  },
+  {
+    "text": "Track your gains with Gains Tracker Pro. Gains sold separately.",
+    "author": "Prem Patel"
+  },
+
   // API Quotes
   {
     "text": "Genius is one percent inspiration and ninety-nine percent perspiration.",

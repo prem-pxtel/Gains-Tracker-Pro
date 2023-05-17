@@ -69,9 +69,9 @@ class HomePageState extends State<HomePage> {
                     // Remove the item from the data source.
                     setState(() {
                       db.wkoutList.removeAt(reverseIndex);
-                      updateMap();
+                      updateWkoutMap();
                       db.updateDatabase();
-                      prUpdaterWkout(reverseIndex);
+                      prWkoutUpdater(reverseIndex);
 
                     });
                     // Then show a snackbar.

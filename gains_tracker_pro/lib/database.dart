@@ -11,10 +11,12 @@ class WorkoutDatabase {
   void loadData() {
     wkoutList = _myBox.get("WKOUTLIST");
     wkoutMap = _myBox.get("WKOUTMAP");
+    prMap = _myBox.get("PRMAP");
   }
 
   void updateDatabase() {
     _myBox.put("WKOUTLIST", wkoutList);
     _myBox.put("WKOUTMAP", wkoutMap);
+    _myBox.put("PRMAP", prMap);
   }
 }

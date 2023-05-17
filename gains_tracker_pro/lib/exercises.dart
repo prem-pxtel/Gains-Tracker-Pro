@@ -33,6 +33,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       db.wkoutList[widget.wkoutIndex].exList.add(newEx);
       Navigator.pop(context);
       tc1.clear();
+
       db.updateDatabase();
     });
   }
@@ -41,8 +42,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     setState(() {            
       Exercise lastEx = db.wkoutList[widget.wkoutIndex].exList.last;
       lastEx.setList.add(newSet);
-      updateMap();
-      db.updateDatabase();
       
        if (db.prMap[lastEx.exName] == null || 
            newSet.weight > db.prMap[lastEx.exName].prWeight) {
@@ -50,7 +49,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
         db.prMap[lastEx.exName] = newPR;
       }
 
-  });
+      updateWkoutMap();
+      db.updateDatabase();
+    });
   } 
 
   updateSetCallback(int exIndex, int setIndex, int reps, int weight) {
@@ -58,24 +59,23 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       Set s = db.wkoutList[widget.wkoutIndex].exList[exIndex].setList[setIndex];
       s.repCount = reps;
       s.weight = weight;
-      updateMap();
-      db.updateDatabase();
       
       if (s.weight > db.prMap[db.wkoutList[widget.wkoutIndex].exList[exIndex].exName].prWeight){
           PR newPR = PR(s.weight, db.wkoutList[widget.wkoutIndex].dt);
           db.prMap[db.wkoutList[widget.wkoutIndex].exList[exIndex].exName] = newPR;
+      } else {
+       // work on this later
       }
-      else{
-       //work on this later
-       // updatePRMap(db.wkoutList[widget.wkoutIndex].exList, exIndex);
-      }
+
+      updateWkoutMap();
+      db.updateDatabase();
     });
   } 
 
   updateNoteCallback(String newNote, int exIndex) {
     setState(() {
-    db.wkoutList[widget.wkoutIndex].exList[exIndex].notes = newNote;
-    db.updateDatabase();
+      db.wkoutList[widget.wkoutIndex].exList[exIndex].notes = newNote;
+      db.updateDatabase();
     });
   }
 
@@ -131,10 +131,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     // Remove the item from the data source.
                     setState(() {
                       db.wkoutList[widget.wkoutIndex].exList.removeAt(exIndex);
-                      updateMap();
-                      db.updateDatabase();
+                      updateWkoutMap();
                       updatePRMap(exList, exIndex);
-                      
+                      db.updateDatabase();
                     });
                     // Then show a snackbar.
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Exercise removed')));
@@ -167,10 +166,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                 // Remove the item from the data source.
                                 setState(() {
                                   db.wkoutList[widget.wkoutIndex].exList[exIndex].setList.removeAt(setIndex);
-                                  updateMap();
-                                  db.updateDatabase();
+                                  updateWkoutMap();
                                   updatePRMap(exList, exIndex);
-
+                                  db.updateDatabase();
                                 });
                                 // Then show a snackbar.
                                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Set removed')));
