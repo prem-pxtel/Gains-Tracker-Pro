@@ -25,7 +25,7 @@ class HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    if (_myBox.get("WKOUTLIST") != null) db.loadData();
+    if (_myBox.get("PRMAP") != null) db.loadData();
   }
 
   @override

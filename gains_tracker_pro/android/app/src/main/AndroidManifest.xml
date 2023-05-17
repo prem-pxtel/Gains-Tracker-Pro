@@ -2,7 +2,7 @@
     package="com.example.gains_tracker_pro">
     <uses-permission android:name="android.permission.VIBRATE" />
    <application
-        android:label="gains_tracker_pro"
+        android:label="Gains Tracker"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
