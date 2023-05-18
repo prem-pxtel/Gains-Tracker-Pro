@@ -141,8 +141,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   child: Theme(
                     data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                     child: ExpansionTile(
-                      key: ValueKey('$exIndex'),
                       title: Text(db.wkoutList[widget.wkoutIndex].exList[exIndex].exName),
+                      // key: PageStorageKey<String>(exList[exIndex].exName),
                       children: <Widget> [
                         // Dynamically display set list
                         ListView.builder(
@@ -163,6 +163,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                 ),
                               ),
                               onDismissed: (direction) {
+                                // Show a snackbar.
+                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Set removed')));
                                 // Remove the item from the data source.
                                 setState(() {
                                   db.wkoutList[widget.wkoutIndex].exList[exIndex].setList.removeAt(setIndex);
@@ -170,22 +172,20 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                   updatePRMap(exList, exIndex);
                                   db.updateDatabase();
                                 });
-                                // Then show a snackbar.
-                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Set removed')));
                               },
                               child: Container(
                                 margin: const EdgeInsets.all(10.0),
                                 child: ListTile(
                                   visualDensity: const VisualDensity(vertical: -4),
                                   tileColor: Theme.of(context).brightness == Brightness.dark
-                                    ? const Color.fromARGB(255, 46, 46, 46)
+                                    ? darkGrey
                                     : Colors.white,
                                   title: Text('Set $setIndexPlus1: [$reps, $weight]'),                
                                   shape: RoundedRectangleBorder(
                                     side: BorderSide(
                                       width: 7,
                                       color: Theme.of(context).brightness == Brightness.dark
-                                        ? const Color.fromARGB(255, 46, 46, 46)
+                                        ? darkGrey
                                         : Colors.white,
                                     ),
                                     borderRadius: BorderRadius.circular(20),
@@ -195,7 +195,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                       backgroundColor: Colors.red.shade400,
                                     ),
                                   trailing: CircleAvatar(
-                                    backgroundColor: const Color.fromARGB(100, 46, 46, 46),
+                                    backgroundColor: darkGrey,
                                     radius: 18,
                                     child: IconButton(
                                       icon: const Icon(Icons.edit_note), 
@@ -220,14 +220,14 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                           child: ListTile(
                             visualDensity: const VisualDensity(vertical: -4),
                             tileColor: Theme.of(context).brightness == Brightness.dark
-                              ? const Color.fromARGB(255, 46, 46, 46)
+                              ? darkGrey
                               : Colors.white,
                             title: Text('Notes: $notes'),                
                             shape: RoundedRectangleBorder(
                               side: BorderSide(
                                 width: 7,
                                 color: Theme.of(context).brightness == Brightness.dark
-                                  ? const Color.fromARGB(255, 46, 46, 46)
+                                  ? darkGrey
                                   : Colors.white,
                               ),
                               borderRadius: BorderRadius.circular(20),
@@ -237,7 +237,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                 backgroundColor: Colors.grey,
                               ),
                             trailing: CircleAvatar(
-                              backgroundColor: const Color.fromARGB(100, 46, 46, 46),
+                              backgroundColor: darkGrey,
                               radius: 18,
                               child: IconButton(
                                 icon: const Icon(Icons.edit_note), 

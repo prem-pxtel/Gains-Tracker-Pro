@@ -20,7 +20,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Gains Tracker Pro',
+      title: 'Gains Tracker',
       home: const HomePage(),
       theme: ThemeData(
         brightness: Brightness.light,

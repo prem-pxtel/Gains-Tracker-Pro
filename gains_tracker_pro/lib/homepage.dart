@@ -10,6 +10,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 WorkoutDatabase db = WorkoutDatabase();
 int curWeight = 30;
 int curReps = 8;
+const Color darkGrey = Color.fromARGB(255, 46, 46, 46);
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,7 +26,8 @@ class HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    if (_myBox.get("PRMAP") != null) db.loadData();
+    if (_myBox.get("WKOUTLIST") != null) db.loadWkouts();
+    if (_myBox.get("PRMAP") != null) db.loadPRs();
   }
 
   @override
@@ -66,16 +68,17 @@ class HomePageState extends State<HomePage> {
                     ),
                   ),
                   onDismissed: (direction) {
+                    // Show a snackbar.
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Workout removed')));
                     // Remove the item from the data source.
                     setState(() {
                       db.wkoutList.removeAt(reverseIndex);
+                    });
+                    setState(() {
                       updateWkoutMap();
                       db.updateDatabase();
                       prWkoutUpdater(reverseIndex);
-
                     });
-                    // Then show a snackbar.
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Workout removed')));
                   },
                   child: ListTile(
                     tileColor: Color(db.wkoutList[reverseIndex].colorVal),
@@ -84,7 +87,7 @@ class HomePageState extends State<HomePage> {
                       side: BorderSide(
                         width: 7,
                         color: Theme.of(context).brightness == Brightness.dark
-                          ? const Color.fromARGB(255, 46, 46, 46)
+                          ? darkGrey
                           : Colors.white,
                       ),
                       borderRadius: BorderRadius.circular(20),
