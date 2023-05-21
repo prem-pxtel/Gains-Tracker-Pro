@@ -140,6 +140,7 @@ class _UpdateRepsAlertDialogState extends State<UpdateRepsAlertDialog> {
                 haptics: true,
                 itemWidth: 45,
                 value: curWeight,
+                step: 5,
                 textStyle: const TextStyle(color: Colors.grey),
                 selectedTextStyle: TextStyle(
                   color: Theme.of(context).brightness == Brightness.dark

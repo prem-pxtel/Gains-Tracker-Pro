@@ -137,17 +137,19 @@ class PRAdapter extends TypeAdapter<PR> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return PR(fields[0] as int, fields[1] as DateTime);
+    return PR(fields[0] as int, fields[1] as DateTime, fields[2] as bool);
   }
 
   @override
   void write(BinaryWriter writer, PR obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.prWeight)
       ..writeByte(1)
-      ..write(obj.prDatetime);
+      ..write(obj.prDatetime)
+      ..writeByte(2)
+      ..write(obj.toBeDeleted);
   }
 
   @override

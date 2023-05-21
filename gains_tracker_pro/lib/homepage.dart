@@ -68,6 +68,8 @@ class HomePageState extends State<HomePage> {
                     ),
                   ),
                   onDismissed: (direction) {
+                    List<String> delExList = getExNames(reverseIndex);
+                    DateTime delExDT = db.wkoutList[reverseIndex].dt;
                     // Show a snackbar.
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Workout removed')));
                     // Remove the item from the data source.
@@ -76,8 +78,8 @@ class HomePageState extends State<HomePage> {
                     });
                     setState(() {
                       updateWkoutMap();
+                      prWkoutUpdater(delExList, delExDT);
                       db.updateDatabase();
-                      prWkoutUpdater(reverseIndex);
                     });
                   },
                   child: ListTile(

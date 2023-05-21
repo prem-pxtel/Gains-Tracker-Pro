@@ -60,11 +60,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       s.repCount = reps;
       s.weight = weight;
       
-      if (s.weight > db.prMap[db.wkoutList[widget.wkoutIndex].exList[exIndex].exName].prWeight){
+      if (s.weight > db.prMap[db.wkoutList[widget.wkoutIndex].exList[exIndex].exName].prWeight) {
           PR newPR = PR(s.weight, db.wkoutList[widget.wkoutIndex].dt);
           db.prMap[db.wkoutList[widget.wkoutIndex].exList[exIndex].exName] = newPR;
-      } else {
-       // work on this later
       }
 
       updateWkoutMap();
@@ -130,9 +128,10 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   onDismissed: (direction) {
                     // Remove the item from the data source.
                     setState(() {
+                      String exDel = exList[exIndex].exName;
                       db.wkoutList[widget.wkoutIndex].exList.removeAt(exIndex);
                       updateWkoutMap();
-                      updatePRMap(exList, exIndex);
+                      updatePRMap(exDel);
                       db.updateDatabase();
                     });
                     // Then show a snackbar.
@@ -169,7 +168,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                 setState(() {
                                   db.wkoutList[widget.wkoutIndex].exList[exIndex].setList.removeAt(setIndex);
                                   updateWkoutMap();
-                                  updatePRMap(exList, exIndex);
+                                  updatePRMap(exList[exIndex].exName);
                                   db.updateDatabase();
                                 });
                               },

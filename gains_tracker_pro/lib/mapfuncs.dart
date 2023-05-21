@@ -18,33 +18,48 @@ void updateWkoutMap() {
   db.wkoutMap.putIfAbsent(db.wkoutList.last.dt, () => getVol(db.wkoutList.last.exList));
 }
 
-// check if indexing with i = 1...length is valid
+int getExIndex(List<Exercise> list, String name) {
+  for (int i = 0; i < list.length; ++i) {
+    if (list[i].exName == name) return i;
+  }
+  return -1;
+}
 
-PR prExUpdater(String name) {
-  int afterdelpr = -1;
-  DateTime afterdeldate = DateTime.now();
-  PR dummy = PR(afterdelpr, afterdeldate, true);
-  for (int i = 1; i <= db.wkoutList.length; ++i) {
-    int exindexPR = db.wkoutList[i].exList.exName.indexof(name);
-    if (exindexPR != -1) {
-      for (int setIndexafterdel = 1; i <= db.wkoutList[i].exList[exindexPR].setList.length; ++i) {
-        if (db.wkoutList[i].exList[exindexPR].setList[setIndexafterdel].
-            prWeight >= afterdelpr) {
-              
-          afterdelpr = db.wkoutList[i].exList[exindexPR].setList[setIndexafterdel].prWeight;
-          afterdeldate = db.wkoutList[i].dt;
-          PR replacement = PR(afterdelpr, afterdeldate);
-          return replacement;
+List<String> getExNames(int wkoutIndex) {
+  List<String> names = [];
+  for (int i = 0; i < db.wkoutList[wkoutIndex].exList.length; ++i) {
+    names.add(db.wkoutList[wkoutIndex].exList[i].exName);
+  }
+  return names;
+}
+
+PR findNewPR(String name) {
+  int toBePR = -1;
+  DateTime toBePRDT = DateTime.now();
+
+  for (int i = 0; i < db.wkoutList.length; ++i) {
+    int matchExIndex = getExIndex(db.wkoutList[i].exList, name);
+    if (matchExIndex != -1) {
+      int setLen = db.wkoutList[i].exList[matchExIndex].setList.length;
+      for (int j = 0; j < setLen; ++j) {
+        int setWeight = db.wkoutList[i].exList[matchExIndex].setList[j].weight;
+        if (setWeight > toBePR) {
+          toBePR = db.wkoutList[i].exList[matchExIndex].setList[j].weight;
+          toBePRDT = db.wkoutList[i].dt;
         }
       }
     }
   }
+  if (toBePR > -1) {
+    PR replacement = PR(toBePR, toBePRDT);
+    return replacement;
+  }
+  PR dummy = PR(toBePR, toBePRDT, true);
   return dummy;
 }
 
-void updatePRMap(List<Exercise> e, int exIndex) {
-  String exName = e[exIndex].exName;
-  PR newPR = prExUpdater(exName);
+void updatePRMap(String exName) {
+  PR newPR = findNewPR(exName);
   if (newPR.toBeDeleted == true) {
     db.prMap.remove(exName);
   } else {
@@ -52,8 +67,19 @@ void updatePRMap(List<Exercise> e, int exIndex) {
   }
 }
 
-void prWkoutUpdater(deletedwkout) {
-  for (int i = 1; i <= db.wkoutList.length; ++i) {
-    updatePRMap(db.wkoutList[deletedwkout].exList, i);
+void updatePRMapB4D(String exName, DateTime dt) {
+  PR newPR = findNewPR(exName);
+  if (newPR.toBeDeleted == true || newPR.prDatetime == dt) {
+    db.prMap.remove(exName);
+  } else {
+    db.prMap[exName] = newPR;
+  }
+}
+
+// need to deal with special case:
+// if newPR.dt == dt of delWkout, then remove from prMap
+void prWkoutUpdater(List<String> names, DateTime dt) {
+  for (int i = 0; i < names.length; ++i) {
+    updatePRMapB4D(names[i], dt);
   }
 }
