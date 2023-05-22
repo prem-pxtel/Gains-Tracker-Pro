@@ -115,7 +115,23 @@ List<Map<String, String?>> quoteList = [
     "author": "Prem Patel"
   },
   {
-    "text": "Track your gains with Gains Tracker Pro. Gains sold separately.",
+    "text": "Gains sold separately.",
+    "author": "Prem Patel"
+  },
+  {
+    "text": "You can sleep when you're dead.",
+    "author": ""
+  },
+  {
+    "text": "Gains are like goals; you'll know when you hit 'em.",
+    "author": "Prem Patel"
+  },
+  {
+    "text": "The price of success is gains; so is the cost.",
+    "author": "Prem Patel"
+  },
+  {
+    "text": "The gains speak for themselves; be ready to listen.",
     "author": "Prem Patel"
   },
 
