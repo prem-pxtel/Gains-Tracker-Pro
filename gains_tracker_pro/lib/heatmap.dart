@@ -75,10 +75,7 @@ class _CalendarPageState extends State<CalendarPage> {
                     ),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  leading: const CircleAvatar(
-                    backgroundColor: Colors.black,
-                    child: Text('PR'),
-                  ),
+                  leading: const Icon(Icons.stars_sharp),
                 );
               }
             )

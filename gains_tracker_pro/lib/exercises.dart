@@ -98,7 +98,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
             showDialog(
               context: context,
               builder: (context) { // same as (context) => AddExerciseAlertD...
-                return AddExerciseAlertDialog(textController: tc1, textController2: tc2 ,wkoutIndex: widget.wkoutIndex, callback: addExCallback);
+                return AddExAlertDialog(textController: tc1, textController2: tc2 ,wkoutIndex: widget.wkoutIndex, callback: addExCallback);
               }
             );
           });
@@ -202,7 +202,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                         setState(() {
                                           showDialog(
                                             context: context,
-                                            builder: (context) => UpdateRepsAlertDialog(setStateCallback: setStateCallback, updateSetCallback: updateSetCallback, exIndex: exIndex, setIndex: setIndex,),
+                                            builder: (context) => UpdateSetAlertDialog(setStateCallback: setStateCallback, updateSetCallback: updateSetCallback, exIndex: exIndex, setIndex: setIndex,),
                                           );
                                         });
                                       }
@@ -244,7 +244,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                   setState(() {
                                     showDialog(
                                       context: context,
-                                      builder: (context) => UpdateNoteDialogBox(callback: updateNoteCallback, exIndex: exIndex),
+                                      builder: (context) => UpdateNotesDialogBox(callback: updateNoteCallback, exIndex: exIndex),
                                     );
                                   });
                                 }

@@ -9,6 +9,7 @@ void main() async {
   Hive.registerAdapter(WorkoutAdapter());
   Hive.registerAdapter(ExerciseAdapter());
   Hive.registerAdapter(SetAdapter());
+  Hive.registerAdapter(PRAdapter());
   await Hive.openBox('theBox');
 
   runApp(const MainApp());

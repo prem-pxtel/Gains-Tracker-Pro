@@ -6,14 +6,14 @@ import 'homepage.dart';
 // note: constructor run before widget is inserted in tree, initState() is after
 // there is also dispose()
 
-// AlertDialog addExDialog = AddExerciseAlertDialog();
+// AlertDialog addExDialog = AddExAlertDialog();
 
-class AddExerciseAlertDialog extends StatelessWidget {
+class AddExAlertDialog extends StatelessWidget {
   final TextEditingController textController;
   final TextEditingController textController2;
   final int wkoutIndex;
   final Function callback;
-  const AddExerciseAlertDialog({
+  const AddExAlertDialog({
     super.key,
     required this.textController,
     required this.textController2,
@@ -95,14 +95,14 @@ class AddExerciseAlertDialog extends StatelessWidget {
   }
 }
 
-// AlertDialog updateRepsDialog = UpdateRepsAlertDialog();
+// AlertDialog updateSetDialog = UpdateSetAlertDialog();
 
-class UpdateRepsAlertDialog extends StatefulWidget {
+class UpdateSetAlertDialog extends StatefulWidget {
   final Function setStateCallback;
   final Function updateSetCallback;
   final int exIndex;
   final int setIndex;
-  const UpdateRepsAlertDialog({
+  const UpdateSetAlertDialog({
     required this.setStateCallback,
     required this.updateSetCallback,
     required this.exIndex,
@@ -111,10 +111,10 @@ class UpdateRepsAlertDialog extends StatefulWidget {
   });
 
   @override
-  State<UpdateRepsAlertDialog> createState() => _UpdateRepsAlertDialogState();
+  State<UpdateSetAlertDialog> createState() => _UpdateSetAlertDialogState();
 }
 
-class _UpdateRepsAlertDialogState extends State<UpdateRepsAlertDialog> {
+class _UpdateSetAlertDialogState extends State<UpdateSetAlertDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -210,10 +210,10 @@ class _UpdateRepsAlertDialogState extends State<UpdateRepsAlertDialog> {
   }
 }
 
-class UpdateNoteDialogBox extends StatelessWidget {
+class UpdateNotesDialogBox extends StatelessWidget {
   final Function callback;
   final int exIndex;
-  const UpdateNoteDialogBox({
+  const UpdateNotesDialogBox({
     super.key,
     required this.callback,
     required this.exIndex,
