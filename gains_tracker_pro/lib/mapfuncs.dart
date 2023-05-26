@@ -76,8 +76,6 @@ void updatePRMapB4D(String exName, DateTime dt) {
   }
 }
 
-// need to deal with special case:
-// if newPR.dt == dt of delWkout, then remove from prMap
 void prWkoutUpdater(List<String> names, DateTime dt) {
   for (int i = 0; i < names.length; ++i) {
     updatePRMapB4D(names[i], dt);
